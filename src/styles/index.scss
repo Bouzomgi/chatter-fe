@@ -1,0 +1,32 @@
+$font-stack:
+  Josefin Sans,
+  sans-serif;
+$primary-color: #00a676;
+$secondary-color: #f7f9f9;
+$tertiary-color: #eae5df;
+$accent-color: #a76d60;
+$base-color: #601700;
+
+html,
+body,
+#root,
+#app {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  font-family: $font-stack, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: $font-stack, source-code-pro, Menlo, Monaco, Consolas,
+    'Courier New', monospace;
+}

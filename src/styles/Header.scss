@@ -1,0 +1,46 @@
+@use 'index.scss';
+
+div.header {
+  background-color: index.$primary-color;
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  h1 {
+    font-weight: 400;
+
+    color: white;
+    padding-top: 35px;
+    padding-bottom: 6px;
+    font-size: 75px;
+    margin: 0;
+    line-height: 65%;
+  }
+
+  h1:hover {
+    cursor: pointer;
+  }
+
+  div.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+      font-weight: 400;
+
+      color: black;
+      font-size: 30px;
+      margin: 3px 0;
+      text-align: center;
+    }
+
+    h2:hover {
+      cursor: pointer;
+      color: white;
+    }
+  }
+}

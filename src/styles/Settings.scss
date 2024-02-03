@@ -1,0 +1,15 @@
+@use 'index.scss';
+
+div.form {
+  img#current-avatar {
+    background-color: index.$secondary-color;
+    border-radius: 50%;
+    height: 60%;
+  }
+
+  img#current-avatar:hover {
+    filter: blur(4px);
+    fill: index.$secondary-color;
+    margin: 0;
+  }
+}
