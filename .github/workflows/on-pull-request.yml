@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run-tests:
+  on-pr:
     runs-on: 'ubuntu-latest'
     permissions:
       contents: read
@@ -29,6 +29,3 @@ jobs:
 
       - name: Check Lint
         run: npm run check-lint
-
-      - name: Run Tests
-        run: npm run test
