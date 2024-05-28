@@ -1,4 +1,6 @@
 import '../styles/Form.scss'
+import '../styles/Arrow.scss'
+
 import arrow from '../assets/arrow.svg'
 import { Link } from 'react-router-dom'
 import Header from './Header'
@@ -8,7 +10,7 @@ export default function Login() {
   return (
     <div id='app'>
       <Header isLoggedIn={false} />
-      <div className='content'>
+      <div className='content form-centerer'>
         <div className='form'>
           <h1>login</h1>
           <span className='form-row'>
@@ -22,7 +24,9 @@ export default function Login() {
             <Link className='alternate-form-text' to='/register'>
               register?
             </Link>
-            <img className='next-arrow' src={arrow} alt='next arrow' />
+            <Link to='/messages'>
+              <img className='selection-arrow' src={arrow} alt='next arrow' />
+            </Link>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Login from './Login'
 import Register from './Register'
 import Settings from './Settings'
 import ErrorPage from './ErrorPage'
+import Main from './Conversations/Conversations'
 
 export default function App() {
   const router = createBrowserRouter([
@@ -19,6 +20,11 @@ export default function App() {
     {
       path: '/settings',
       element: <Settings />,
+      errorElement: <ErrorPage />
+    },
+    {
+      path: '/messages',
+      element: <Main />,
       errorElement: <ErrorPage />
     }
   ])

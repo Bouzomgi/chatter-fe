@@ -3,7 +3,8 @@ $font-stack:
   sans-serif;
 $primary-color: #00a676;
 $secondary-color: #f7f9f9;
-$tertiary-color: #eae5df;
+$tertiary-color: #e0d0c180;
+$tertiary-color-dark: #e0d0c1cc;
 $accent-color: #a76d60;
 $base-color: #601700;
 
@@ -12,9 +13,30 @@ body,
 #root,
 #app {
   height: 100%;
+  width: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
+}
+
+div.content {
+  height: 100%;
+  width: 100%;
+}
+
+div.column {
+  display: flex;
+  flex-direction: column;
+}
+
+div.row {
+  display: flex;
+  flex-direction: rows;
+}
+
+img.avatar {
+  background-color: $secondary-color;
+  border-radius: 50%;
 }
 
 body {

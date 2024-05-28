@@ -1,44 +1,50 @@
 @use 'index.scss';
 
-div.content {
+div.form-centerer {
   display: flex;
   height: 100%;
-  width: 40%;
-  margin: auto;
+  width: 100%;
+  flex-direction: column;
+}
+
+input[type='text'] {
+  height: 100%;
+  width: 100%;
+  background-color: index.$secondary-color;
+  border-radius: 8px;
+  border: 0;
+  box-shadow: 0px 1.5px 1.5px 0px grey;
 }
 
 div.form {
   background-color: index.$tertiary-color;
-  width: 40%;
   border-radius: 3%;
 
+  width: 40%;
   flex: 1;
 
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin: 5% auto;
 
-  padding-top: 5%;
-  padding-bottom: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
 
   h1 {
     font-size: 50px;
     font-weight: 400;
     margin: 0 auto;
+    margin-bottom: 2%;
   }
 
   .form-row {
     display: flex;
     align-items: center;
-
     height: 14%;
     width: 80%;
-
     gap: 10%;
-
     margin-left: auto;
     margin-right: auto;
   }
@@ -52,7 +58,7 @@ div.form {
     border: 0;
     box-shadow: 0px 1.5px 1.5px 0px grey;
 
-    font-size: 30px;
+    font-size: 28px;
     text-indent: 18px;
   }
 
@@ -66,8 +72,17 @@ div.form {
     justify-content: space-between;
     align-items: center;
 
-    font-size: 25px;
+    font-size: 24px;
     width: 100%;
+
+    a {
+      margin-right: 10%;
+      margin-left: auto;
+    }
+
+    img.selection-arrow {
+      height: 70px;
+    }
   }
 
   a.alternate-form-text {
@@ -78,17 +93,5 @@ div.form {
   a.alternate-form-text:hover {
     cursor: pointer;
     filter: drop-shadow(1px 1px 1px index.$primary-color);
-  }
-
-  img.next-arrow {
-    height: 80px;
-    margin-left: auto;
-    margin-right: 10%;
-  }
-
-  img.next-arrow:hover {
-    cursor: pointer;
-    rotate: 4deg;
-    filter: drop-shadow(2px 4px 1px index.$primary-color);
   }
 }

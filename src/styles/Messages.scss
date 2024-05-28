@@ -1,0 +1,46 @@
+@use 'index.scss';
+
+ul.message-list {
+  list-style-type: none;
+  padding: 0;
+  width: 93%;
+  margin: auto;
+
+  li {
+    margin: 4px 0;
+
+    div.message {
+      width: fit-content;
+      max-width: 60%;
+      font-size: 20px;
+      padding: 8px 8px 5px 8px;
+      border-radius: 10px;
+    }
+
+    div.message.notFromUser {
+      background-color: rgba(#d9d9d9, 0.7);
+    }
+
+    div.message.fromUser {
+      margin-left: auto;
+      background-color: rgba(index.$primary-color, 0.2);
+    }
+
+    div.message.next-delayed {
+      margin-bottom: 10px;
+    }
+
+    div.timestamp-label {
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+
+  li:first-child {
+    margin-top: 10px;
+  }
+
+  li:last-child {
+    margin-bottom: 15px;
+  }
+}

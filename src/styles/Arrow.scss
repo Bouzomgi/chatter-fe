@@ -1,0 +1,7 @@
+@use 'index.scss';
+
+img.selection-arrow:hover {
+  cursor: pointer;
+  rotate: 4deg;
+  filter: drop-shadow(2px 4px 1px index.$primary-color);
+}

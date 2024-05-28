@@ -1,0 +1,81 @@
+@use 'index.scss';
+
+div.head {
+  height: 79px;
+  padding: 8px;
+  font-size: 18px;
+
+  display: flex;
+  flex-direction: row;
+  background-color: index.$tertiary-color-dark;
+}
+
+div.message-head {
+  img.avatar {
+    margin-right: 8px;
+  }
+
+  img.avatar.unseen {
+    box-shadow: inset 0 0 0 2px rgb(index.$primary-color, 0.5);
+  }
+
+  div.head-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    div.head-title {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4px;
+
+      .username {
+        font-size: larger;
+        font-weight: bold;
+      }
+    }
+
+    .message-content {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+div.message-head.active {
+  border-right: 4px solid index.$primary-color;
+  padding-right: 4px;
+}
+
+div.head + div.head {
+  border-top: white solid 2px;
+}
+
+div.message-head:hover {
+  cursor: pointer;
+}
+
+div.user-head {
+  .username {
+    display: flex;
+    font-size: 26px;
+    align-items: center;
+    margin-left: 20px;
+  }
+
+  .arrow-container {
+    display: flex;
+    margin: 0 3px 1px auto;
+    align-self: flex-end;
+
+    img.selection-arrow {
+      height: 27px;
+    }
+  }
+}
