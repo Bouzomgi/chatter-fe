@@ -1,0 +1,54 @@
+@use 'index.scss';
+
+div.modal-centerer {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px) brightness(80%);
+  display: flex;
+  justify-content: center;
+}
+
+div.modal {
+  background-color: index.$tertiary-color;
+  width: max-content;
+  height: max-content;
+  padding: 10px;
+
+  div.modal-top {
+    display: flex;
+  }
+
+  div.modal-descriptor {
+    text-align: center;
+    font-size: 30px;
+    margin: 10px 0;
+  }
+
+  .exit-button {
+    transform: scale(2);
+    margin: 10px 10px 0px auto;
+  }
+
+  .exit-button:hover {
+    cursor: pointer;
+  }
+}
+
+div.avatar-grid {
+  display: grid;
+  justify-items: center;
+  gap: 15px;
+  grid-template-columns: repeat(3, min-content);
+  padding: 15px;
+
+  img.avatar {
+    height: 120px;
+  }
+
+  img.avatar:hover {
+    box-shadow: inset 0 0 0 1.5px rgb(index.$primary-color, 0.5);
+    cursor: pointer;
+  }
+}

@@ -1,12 +1,19 @@
 import '../styles/Header.scss'
 
-type HeaderProps = { readonly isLoggedIn: boolean }
+import { Link } from 'react-router-dom'
 
-export default function Header({ isLoggedIn }: HeaderProps) {
+type HeaderProps = {
+  readonly isLoggedIn: boolean
+  readonly onSettingsPage: boolean
+}
+
+function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
   const options = (
     <div className='options'>
-      <h2>settings</h2>
-      <h2>log out</h2>
+      <Link to='/settings' className={onSettingsPage ? 'active' : ''}>
+        settings
+      </Link>
+      <Link to='/'>log out</Link>
     </div>
   )
 
@@ -17,3 +24,9 @@ export default function Header({ isLoggedIn }: HeaderProps) {
     </div>
   )
 }
+
+Header.defaultProps = {
+  onSettingsPage: false
+}
+
+export default Header

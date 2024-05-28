@@ -2,14 +2,11 @@
 
 div.form {
   img#current-avatar {
-    background-color: index.$secondary-color;
-    border-radius: 50%;
-    height: 60%;
+    height: 90px;
   }
 
   img#current-avatar:hover {
+    cursor: pointer;
     filter: blur(4px);
-    fill: index.$secondary-color;
-    margin: 0;
   }
 }
