@@ -41,7 +41,7 @@ export default function Settings() {
             <EmptyFormRow />
             <EmptyFormRow />
             <div className='bottom'>
-              <Link to='/messages'>
+              <Link to='/chatroom'>
                 <img className='selection-arrow' src={arrow} alt='next arrow' />
               </Link>
             </div>

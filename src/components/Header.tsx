@@ -1,10 +1,9 @@
 import '../styles/Header.scss'
-
 import { Link } from 'react-router-dom'
 
 type HeaderProps = {
   readonly isLoggedIn: boolean
-  readonly onSettingsPage: boolean
+  readonly onSettingsPage?: boolean
 }
 
 function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
@@ -23,10 +22,6 @@ function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
       {isLoggedIn && options}
     </div>
   )
-}
-
-Header.defaultProps = {
-  onSettingsPage: false
 }
 
 export default Header

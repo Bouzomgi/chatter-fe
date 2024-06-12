@@ -20,17 +20,18 @@ div.form {
   background-color: index.$tertiary-color;
   border-radius: 3%;
 
-  width: 40%;
+  width: 30%;
   flex: 1;
+
+  margin: 2.5% auto;
 
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 
-  margin: 5% auto;
+  gap: 3%;
 
-  padding-top: 2%;
-  padding-bottom: 2%;
+  padding: 1% 3%;
 
   h1 {
     font-size: 50px;
@@ -39,20 +40,29 @@ div.form {
     margin-bottom: 2%;
   }
 
+  .input-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4%;
+  }
+
   .form-row {
     display: flex;
     align-items: center;
-    height: 14%;
-    width: 80%;
-    gap: 10%;
+    flex-direction: column;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    flex: 1;
+
+    gap: 8%;
   }
 
   input[type='text'],
   .form-element {
-    height: 100%;
     width: 100%;
+    flex-grow: 1;
     background-color: index.$secondary-color;
     border-radius: 8px;
     border: 0;
@@ -67,27 +77,64 @@ div.form {
     align-items: center;
   }
 
-  div.bottom {
+  .input-error {
+    font-size: 18px;
+    min-height: 18px;
+
+    text-indent: 4px;
+
+    align-self: flex-start;
+    color: darkred;
+  }
+
+  div.submission {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
-    font-size: 24px;
+    flex-direction: column;
     width: 100%;
 
-    a {
-      margin-right: 10%;
-      margin-left: auto;
+    gap: 7px;
+
+    div.submission-message {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+
+      font-size: 24px;
+
+      .failure {
+        color: darkred;
+      }
+
+      .placeholder {
+        min-height: 24px;
+      }
     }
 
-    img.selection-arrow {
-      height: 70px;
+    div.submission-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+
+      width: 100%;
+
+      button {
+        padding: 0;
+        border: none;
+        background: none;
+        margin-left: auto;
+      }
+
+      img.selection-arrow {
+        height: 70px;
+      }
     }
   }
 
   a.alternate-form-text {
     all: unset;
-    margin-left: 20%;
+    margin-left: 10%;
   }
 
   a.alternate-form-text:hover {

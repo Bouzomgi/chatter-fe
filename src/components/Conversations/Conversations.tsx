@@ -52,7 +52,7 @@ export default function Main() {
       <div className='content conversations-view'>
         <div className='conversation-nav'>
           <div className='search-container form-element'>
-            <input type='text' placeholder='search' />
+            {/* <input type='text' placeholder='search' /> */}
           </div>
           <div className='message-head-container'>
             {showUserHeads ? userHeads : messageHeads}

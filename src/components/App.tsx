@@ -23,7 +23,7 @@ export default function App() {
       errorElement: <ErrorPage />
     },
     {
-      path: '/messages',
+      path: '/chatroom',
       element: <Main />,
       errorElement: <ErrorPage />
     }

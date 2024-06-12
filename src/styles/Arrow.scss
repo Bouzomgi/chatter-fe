@@ -5,3 +5,22 @@ img.selection-arrow:hover {
   rotate: 4deg;
   filter: drop-shadow(2px 4px 1px index.$primary-color);
 }
+
+@keyframes shake {
+  0%,
+  40%,
+  80% {
+    transform: rotate(4deg);
+  }
+  20%,
+  60%,
+  100% {
+    transform: rotate(-4deg);
+  }
+}
+
+.shake {
+  filter: none !important;
+  animation: shake 1s ease-in-out;
+  animation-iteration-count: 1;
+}
