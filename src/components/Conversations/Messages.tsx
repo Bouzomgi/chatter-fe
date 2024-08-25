@@ -1,108 +1,95 @@
-import '../../styles/Messages.scss'
-
+import '../../styles/Message.scss'
 import Message from './Message'
-import TimestampLabel from './TimestampLabel'
-
+import MessageType from '../../models/Message'
+import LocalStorageService from '../../services/LocalStorageService'
 import dayjs from 'dayjs'
-import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-
-export type MessageComponents = {
-  readonly messageId: string
-  readonly senderUserId: string
-  readonly content: string
-  readonly timestamp: Date
-}
+import TimestampLabel from './TimestampLabel'
+import { useRef, useEffect } from 'react'
 
 export type MessagesProps = {
-  readonly messages: MessageComponents[]
+  readonly messages: MessageType[]
 }
 
+const twoHoursInSeconds = 60 * 60 * 2
+const thirtySeconds = 30
+
 export function Messages({ messages }: MessagesProps) {
-  const [userId, setUserId] = useState('')
-  const navigate = useNavigate()
+  const { userId } = LocalStorageService.getUserDetails()
+  const timestampList = messages.flatMap((elem) => dayjs(elem.createdAt))
+  const currentDay = dayjs()
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // messages is an array, so we use this approach to see when messages has changed
+  const jsonMessagesString = JSON.stringify(messages)
 
   useEffect(() => {
-    // const userId = localStorage.getItem('userId')
-    // Will update
-    const userId = '1'
-
-    if (userId == null) {
-      navigate('/')
-    } else {
-      setUserId(userId)
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight
     }
-  }, [navigate])
+  }, [jsonMessagesString]) // Re-run when messages change
 
-  const timestampList = messages.map((elem) => dayjs(elem.timestamp))
-  const currentDay = dayjs()
+  const messageList = messages.map((message, index) => {
+    const isFromUser = `${userId}` === `${message.fromUserId}`
+    const currentMessageDate = timestampList[index]
 
-  const headlessMessageList = messages.flatMap((message, index) => {
-    const isFromUser = userId === message.senderUserId
+    const messageWithTimestamp = [
+      <TimestampLabel
+        key={message.messageId + ' timestamp'}
+        labelingMessageId={message.messageId}
+        messageDay={currentMessageDate}
+        currentDay={currentDay}
+      />,
+      <Message
+        key={message.messageId}
+        messageId={message.messageId}
+        content={message.content}
+        isFromUser={isFromUser}
+      />
+    ]
 
-    if (index < messages.length - 1) {
-      const followingMessage = messages[index + 1]
-      const currentMessageDate = timestampList[index]
-      const followingMessageDate = timestampList[index + 1]
-
-      const differenceInSeconds = Math.abs(
-        followingMessageDate.diff(currentMessageDate, 'second')
-      )
-
-      const areDifferentDays = !currentMessageDate.isSame(
-        followingMessageDate,
-        'day'
-      )
-
-      const twoHoursInSeconds = 60 * 60 * 2
-
-      // check for more than 2 hours apart
-      if (differenceInSeconds >= twoHoursInSeconds || areDifferentDays) {
-        return [
-          <li key={message.messageId}>
-            <Message content={message.content} isFromUser={isFromUser} />
-          </li>,
-          <li key={followingMessage + ' timestamp'}>
-            <TimestampLabel
-              messageDay={followingMessageDate}
-              currentDay={currentDay}
-            />
-          </li>
-        ]
-      } else if (message.senderUserId === followingMessage.senderUserId) {
-        if (differenceInSeconds >= 30) {
-          return (
-            <li key={message.messageId}>
-              <Message
-                content={message.content}
-                isFromUser={isFromUser}
-                addSpace={true}
-              />
-            </li>
-          )
-        }
-      }
+    if (index === 0) {
+      return messageWithTimestamp
     }
-    return (
-      <li key={message.messageId}>
-        <Message content={message.content} isFromUser={isFromUser} />
-      </li>
+
+    const previousMessageDate = timestampList[index - 1]
+
+    const differenceInSeconds = Math.abs(
+      currentMessageDate.diff(previousMessageDate, 'second')
     )
+
+    const areDifferentDays = !currentMessageDate.isSame(
+      previousMessageDate,
+      'day'
+    )
+
+    const shouldShowTimestamp =
+      differenceInSeconds >= twoHoursInSeconds || areDifferentDays
+
+    const isPreviousMessageFromDifferentChatter =
+      message.fromUserId !== messages[index - 1].fromUserId
+
+    if (shouldShowTimestamp) {
+      return messageWithTimestamp
+    }
+
+    const shouldAddSpace =
+      isPreviousMessageFromDifferentChatter ||
+      differenceInSeconds >= thirtySeconds
+
+    return [
+      <Message
+        key={message.messageId}
+        messageId={message.messageId}
+        content={message.content}
+        isFromUser={isFromUser}
+        addSpace={shouldAddSpace}
+      />
+    ]
   })
 
-  // Adds initial timestamp label
-  const messageList =
-    messages.length > 0
-      ? [
-          <li key={messages[0].messageId + ' timestamp'}>
-            <TimestampLabel
-              messageDay={timestampList[0]}
-              currentDay={currentDay}
-            />
-          </li>,
-          ...headlessMessageList
-        ]
-      : headlessMessageList
-
-  return <ul className='message-list'>{messageList}</ul>
+  return (
+    <div className='messages' ref={messagesEndRef}>
+      <ul className='message-list'>{messageList}</ul>
+    </div>
+  )
 }

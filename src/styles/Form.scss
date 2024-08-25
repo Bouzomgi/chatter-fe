@@ -20,17 +20,18 @@ div.form {
   background-color: index.$tertiary-color;
   border-radius: 3%;
 
-  width: 40%;
+  width: 30%;
   flex: 1;
+
+  margin: 2.5% auto;
 
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 
-  margin: 5% auto;
+  gap: 3%;
 
-  padding-top: 2%;
-  padding-bottom: 2%;
+  padding: 1% 3% 1.5%;
 
   h1 {
     font-size: 50px;
@@ -39,11 +40,28 @@ div.form {
     margin-bottom: 2%;
   }
 
-  .form-row {
+  .input-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4%;
+  }
+
+  .form-input-row {
     display: flex;
     align-items: center;
-    height: 14%;
-    width: 80%;
+    flex-direction: column;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1;
+
+    gap: 8%;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: row;
     gap: 10%;
     margin-left: auto;
     margin-right: auto;
@@ -51,8 +69,8 @@ div.form {
 
   input[type='text'],
   .form-element {
-    height: 100%;
     width: 100%;
+    flex-grow: 1;
     background-color: index.$secondary-color;
     border-radius: 8px;
     border: 0;
@@ -67,16 +85,66 @@ div.form {
     align-items: center;
   }
 
-  div.bottom {
+  .form-label {
+    margin: auto;
+    padding: 5px 10px;
+
+    background-color: index.$secondary-color;
+    border-radius: 8px;
+    border: 0;
+    box-shadow: 0px 1.5px 1.5px 0px grey;
+
+    font-size: 28px;
+    white-space: nowrap;
+  }
+
+  .input-error {
+    font-size: 18px;
+    min-height: 18px;
+
+    text-indent: 4px;
+
+    align-self: flex-start;
+    color: darkred;
+  }
+
+  div.submission {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+
+    gap: 7px;
+
+    div.submission-message {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+
+      font-size: 24px;
+
+      .failure {
+        color: darkred;
+      }
+
+      .placeholder {
+        min-height: 24px;
+      }
+    }
+  }
+
+  div.submission-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 22px;
 
-    font-size: 24px;
     width: 100%;
 
-    a {
-      margin-right: 10%;
+    button {
+      padding: 0;
+      border: none;
+      background: none;
       margin-left: auto;
     }
 
@@ -87,7 +155,7 @@ div.form {
 
   a.alternate-form-text {
     all: unset;
-    margin-left: 20%;
+    margin-left: 10%;
   }
 
   a.alternate-form-text:hover {

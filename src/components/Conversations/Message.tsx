@@ -1,19 +1,23 @@
-import { timeStamp } from 'console'
-
 type MessageProps = {
+  readonly messageId: number
   readonly content: string
   readonly isFromUser: boolean
   readonly addSpace?: boolean
 }
 
 export default function Message({
+  messageId,
   content,
   isFromUser,
   addSpace = false
 }: MessageProps) {
   const className =
     'message' +
-    (addSpace ? ' next-delayed' : '') +
+    (addSpace ? ' add-top-gap' : '') +
     (isFromUser ? ' fromUser' : ' notFromUser')
-  return <div className={className}>{content}</div>
+  return (
+    <li key={messageId} className={className}>
+      {content}
+    </li>
+  )
 }
