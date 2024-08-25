@@ -29,10 +29,11 @@ div.header {
     flex-direction: column;
     justify-content: center;
 
-    a {
+    a,
+    button {
       all: unset;
-      font-weight: 400;
 
+      font-weight: 400;
       color: black;
       font-size: 30px;
       margin: 3px 0;
@@ -43,9 +44,30 @@ div.header {
       color: white;
     }
 
-    a:hover {
+    a:hover,
+    button:hover {
       cursor: pointer;
       color: white;
+    }
+
+    button.failure {
+      color: red;
+      filter: none !important;
+      animation: shake 1s ease-in-out;
+      animation-iteration-count: 1;
+    }
+
+    @keyframes shake {
+      0%,
+      40%,
+      80% {
+        transform: rotate(4deg);
+      }
+      20%,
+      60%,
+      100% {
+        transform: rotate(-4deg);
+      }
     }
   }
 }
