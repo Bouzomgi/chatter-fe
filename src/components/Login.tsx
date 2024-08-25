@@ -1,16 +1,31 @@
 import '../styles/Form.scss'
 import '../styles/Arrow.scss'
 
-import arrow from '../assets/arrow.svg'
 import { Link, useNavigate } from 'react-router-dom'
-import Header from './Header'
-import EmptyFormRow from './EmptyFormRow'
 import { useState } from 'react'
+import arrow from '../assets/arrow.svg'
+import Header from './Header'
 import AuthService from '../services/AuthService'
+import axios, { AxiosError, HttpStatusCode } from 'axios'
+import { ValidationError } from 'yup'
+import FormField from './FormField'
+import EmptyFormRow from './EmptyFormInputRow'
+import loginSchema from '../validators/loginValidator'
+import LocalStorageService from '../services/LocalStorageService'
 
 export default function Login() {
-  const [isShaking, setIsShaking] = useState(false)
-  const [loginForm, setLoginForm] = useState({ username: '', password: '' })
+  const [isArrowShaking, setIsArrowShaking] = useState(false)
+  const [loginForm, setLoginForm] = useState({
+    username: '',
+    password: ''
+  })
+
+  const [errors, setErrors] = useState({
+    username: '',
+    password: ''
+  })
+
+  const [error, setError] = useState('')
 
   const navigate = useNavigate()
 
@@ -22,15 +37,75 @@ export default function Login() {
     }))
   }
 
+  function clearFeedback() {
+    setErrors({
+      username: '',
+      password: ''
+    })
+    setError('')
+  }
+
+  function handleValidationError(validationError: ValidationError) {
+    const discoveredErrors = {
+      username: '',
+      password: ''
+    }
+    validationError.inner.forEach((error) => {
+      if (error.path && error.path in discoveredErrors) {
+        discoveredErrors[error.path as keyof typeof discoveredErrors] =
+          error.message
+      }
+    })
+    setErrors(discoveredErrors)
+  }
+
+  function handleAxiosError(axiosError: AxiosError) {
+    if (axiosError.response) {
+      if (axiosError.response.status === HttpStatusCode.NotFound) {
+        setError('Username does not exist')
+      } else if (axiosError.response.status === HttpStatusCode.Unauthorized) {
+        setError('Invalid password')
+      } else {
+        setError('Could not login')
+      }
+    } else if (axiosError.code === 'ECONNABORTED') {
+      setError('Request timed out')
+    } else if (axiosError.code === 'ECONNREFUSED') {
+      setError('Could not connect to back end')
+    } else {
+      setError('Unknown error')
+    }
+  }
+
   async function submitLogin() {
     try {
-      await AuthService.login(loginForm)
+      clearFeedback()
+
+      // validate inputs clientside
+      await loginSchema.validate(loginForm, { abortEarly: false })
+
+      const { data } = await AuthService.login(loginForm)
+
+      const userDetails = {
+        ...data,
+        userId: data.userId
+      }
+
+      LocalStorageService.setUserDetails(userDetails)
+
       navigate('/chatroom')
     } catch (error) {
       // shake the arrow
-      setIsShaking(true)
-      setTimeout(() => setIsShaking(false), 500)
-      console.log(error)
+      setIsArrowShaking(true)
+      setTimeout(() => setIsArrowShaking(false), 500)
+
+      if (ValidationError.isError(error)) {
+        handleValidationError(error)
+      } else if (axios.isAxiosError(error)) {
+        handleAxiosError(error)
+      } else {
+        setError('Unknown error')
+      }
     }
   }
 
@@ -40,36 +115,40 @@ export default function Login() {
       <div className='content form-centerer'>
         <div className='form'>
           <h1>login</h1>
-          <span className='form-row'>
-            <input
-              type='text'
-              id='username'
-              placeholder='username'
+          <div className='input-section'>
+            <FormField
+              fieldName='username'
               value={loginForm.username}
-              onChange={assignInput}
+              assignInput={assignInput}
+              error={errors.username}
             />
-          </span>
-          <span className='form-row'>
-            <input
-              type='text'
-              id='password'
-              placeholder='password'
+            <FormField
+              fieldName='password'
               value={loginForm.password}
-              onChange={assignInput}
+              assignInput={assignInput}
+              error={errors.password}
             />
-          </span>
-          <EmptyFormRow />
-          <div className='bottom'>
-            <Link className='alternate-form-text' to='/register'>
-              register?
-            </Link>
-            <button onClick={submitLogin}>
-              <img
-                className={'selection-arrow' + (isShaking ? ' shake' : '')}
-                src={arrow}
-                alt='next arrow'
-              />
-            </button>
+            <EmptyFormRow />
+          </div>
+          <div className='submission'>
+            <div className='submission-message'>
+              <span className='failure'>{error}</span>
+              {!error && <span className='placeholder' />}
+            </div>
+            <div className='submission-row'>
+              <Link className='alternate-form-text' to='/register'>
+                register?
+              </Link>
+              <button onClick={submitLogin}>
+                <img
+                  className={
+                    'selection-arrow' + (isArrowShaking ? ' shake' : '')
+                  }
+                  src={arrow}
+                  alt='next arrow'
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>

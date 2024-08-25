@@ -3,15 +3,48 @@ import '../styles/Settings.scss'
 
 import Header from './Header'
 import arrow from '../assets/arrow.svg'
-import avatar2 from '../assets/avatars/avatar2.svg'
-import EmptyFormRow from './EmptyFormRow'
+import EmptyFormRow from './EmptyFormInputRow'
 import { useState } from 'react'
 import AvatarSelectionModal from './AvatarSelectionModal'
-import { Link } from 'react-router-dom'
+import LocalStorageService from '../services/LocalStorageService'
+import Avatar from '../models/Avatar'
+import SettingsService from '../services/SettingsService'
+import { useNavigate } from 'react-router-dom'
+
+const getCurrentAvatar = () => {
+  const { avatarName, avatarUrl } = LocalStorageService.getUserDetails()
+  return {
+    name: avatarName,
+    url: avatarUrl
+  }
+}
 
 export default function Settings() {
+  const [isArrowShaking, setIsArrowShaking] = useState(false)
+
   const [showAvatarSelectionModal, setShowAvatarSelectionModal] =
     useState(false)
+
+  const [currentSelectedAvatar, setCurrentSelectedAvatar] =
+    useState<Avatar>(getCurrentAvatar())
+
+  const navigate = useNavigate()
+
+  const submitSettings = async () => {
+    try {
+      await SettingsService.setSettings({ avatar: currentSelectedAvatar.name })
+      const userDetails = LocalStorageService.getUserDetails()
+      LocalStorageService.setUserDetails({
+        ...userDetails,
+        avatar: currentSelectedAvatar
+      })
+      navigate('/chatroom')
+    } catch {
+      // shake the arrow
+      setIsArrowShaking(true)
+      setTimeout(() => setIsArrowShaking(false), 500)
+    }
+  }
 
   return (
     <div id='app'>
@@ -20,30 +53,37 @@ export default function Settings() {
         {showAvatarSelectionModal && (
           <AvatarSelectionModal
             clearModal={() => setShowAvatarSelectionModal(false)}
+            setCurrentSelectedAvatar={setCurrentSelectedAvatar}
           />
         )}
 
         <div className='form-centerer'>
           <div className='form'>
             <h1>settings</h1>
-            <span className='form-row'>
-              <div className='form-element' id='avatar-form-label'>
+            <div className='form-row'>
+              <span className='form-label' id='avatar-form-label'>
                 current avatar
-              </div>
+              </span>
               <img
                 className='avatar'
                 id='current-avatar'
-                src={avatar2}
+                src={currentSelectedAvatar.url}
                 alt='current avatar'
                 onClick={() => setShowAvatarSelectionModal(true)}
               />
-            </span>
+            </div>
             <EmptyFormRow />
             <EmptyFormRow />
-            <div className='bottom'>
-              <Link to='/chatroom'>
-                <img className='selection-arrow' src={arrow} alt='next arrow' />
-              </Link>
+            <div className='submission-row'>
+              <button onClick={submitSettings}>
+                <img
+                  className={
+                    'selection-arrow' + (isArrowShaking ? ' shake' : '')
+                  }
+                  src={arrow}
+                  alt='next arrow'
+                />
+              </button>
             </div>
           </div>
         </div>

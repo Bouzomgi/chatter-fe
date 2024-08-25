@@ -12,7 +12,7 @@ import { ValidationError } from 'yup'
 import FormField from './FormField'
 
 export default function Register() {
-  const [isShaking, setIsShaking] = useState(false)
+  const [isArrowShaking, setIsArrowShaking] = useState(false)
   const [registerForm, setRegisterForm] = useState({
     username: '',
     email: '',
@@ -86,8 +86,8 @@ export default function Register() {
       setResponse('Successfully created account')
     } catch (error) {
       // shake the arrow
-      setIsShaking(true)
-      setTimeout(() => setIsShaking(false), 500)
+      setIsArrowShaking(true)
+      setTimeout(() => setIsArrowShaking(false), 500)
 
       if (ValidationError.isError(error)) {
         handleValidationError(error)
@@ -137,7 +137,9 @@ export default function Register() {
               </Link>
               <button onClick={submitRegistration}>
                 <img
-                  className={'selection-arrow' + (isShaking ? ' shake' : '')}
+                  className={
+                    'selection-arrow' + (isArrowShaking ? ' shake' : '')
+                  }
                   src={arrow}
                   alt='next arrow'
                 />

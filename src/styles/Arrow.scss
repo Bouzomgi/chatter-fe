@@ -1,5 +1,10 @@
 @use 'index.scss';
 
+img.selection-arrow {
+  height: 70px;
+  float: right;
+}
+
 img.selection-arrow:hover {
   cursor: pointer;
   rotate: 4deg;
@@ -23,4 +28,9 @@ img.selection-arrow:hover {
   filter: none !important;
   animation: shake 1s ease-in-out;
   animation-iteration-count: 1;
+}
+
+img.selection-arrow.selected {
+  rotate: 4deg;
+  filter: drop-shadow(2px 4px 1px index.$primary-color);
 }

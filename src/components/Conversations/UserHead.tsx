@@ -1,26 +1,29 @@
-import '../../styles/MessageHead.scss'
+import '../../styles/ChatHead.scss'
 import arrow from '../../assets/arrow.svg'
+import UserDetails from '../../models/UserDetails'
 
-export type UserHeadProps = {
-  readonly username: string
-  readonly avatar: string
-}
+type UserHeadProps = {
+  readonly draftThreadUserDetails: null | UserDetails
+} & UserDetails
 
 export function UserHead({
+  userId,
   username,
   avatar,
+  draftThreadUserDetails,
   onClick
 }: UserHeadProps & {
   readonly onClick: () => void
 }) {
-  const avatarImageAlt = `${username} avatar`
+  const isSelected = draftThreadUserDetails?.userId === userId
+
   return (
     <div className='head user-head'>
-      <img className='avatar' src={avatar} alt={avatarImageAlt} />
+      <img className='avatar' src={avatar.url} alt={avatar.name} />
       <span className='username'>{username}</span>
       <span className='arrow-container'>
         <img
-          className='selection-arrow'
+          className={'selection-arrow' + (isSelected ? ' selected' : '')}
           src={arrow}
           alt='next arrow'
           onClick={onClick}

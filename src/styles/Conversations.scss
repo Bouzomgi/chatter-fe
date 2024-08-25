@@ -60,10 +60,16 @@ div.conversations-view {
     }
   }
 
-  div.conversation-body {
+  div.right-content {
     display: flex;
     flex-direction: column;
     flex: auto;
+
+    div.conversation-body {
+      display: flex;
+      flex-direction: column;
+      flex: auto;
+    }
 
     div.conversation-header {
       display: flex;
@@ -77,7 +83,8 @@ div.conversations-view {
 
       div.username {
         font-size: 30px;
-        padding-top: 2px;
+        font-weight: bold;
+        padding-top: 5px;
       }
 
       div.activity-status {

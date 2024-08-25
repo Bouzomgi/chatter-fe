@@ -7,7 +7,7 @@ type FormFieldProps = {
 
 function FormField({ fieldName, value, assignInput, error }: FormFieldProps) {
   return (
-    <div className='form-row'>
+    <div className='form-input-row'>
       <input
         type='text'
         id={fieldName}
