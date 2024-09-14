@@ -39,6 +39,10 @@ img.avatar {
   border-radius: 50%;
 }
 
+.nodisplay {
+  display: none;
+}
+
 body {
   margin: 0;
   font-family: $font-stack, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

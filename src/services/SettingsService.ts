@@ -2,6 +2,7 @@ import { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
 import { ExtractResponseBody } from './Extractors'
 import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
 import axiosAuthInstance from './AuthInterceptor'
+import env from '../config'
 
 type DefaultAvatarResponse = ExtractResponseBody<
   '/authed/defaultAvatars',
@@ -30,7 +31,7 @@ export default class SettingsService {
       DefaultAvatarResponse,
       AxiosResponse<DefaultAvatarResponse>
     >(
-      `${process.env.REACT_APP_BACKEND_ENDPOINT}/authed/defaultAvatars`,
+      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/authed/defaultAvatars`,
       axiosConfig
     )
   }
@@ -41,7 +42,7 @@ export default class SettingsService {
       AxiosResponse<SetSettingsResponse>,
       SetSettingsRequest
     >(
-      `${process.env.REACT_APP_BACKEND_ENDPOINT}/authed/setSettings`,
+      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/authed/setSettings`,
       settingsForm,
       axiosConfig
     )

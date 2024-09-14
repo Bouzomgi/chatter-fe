@@ -1,17 +1,18 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 import LocalStorageService from '../../services/LocalStorageService'
 import UserDetails from '../../models/UserDetails'
-import { ThreadIdToChat } from '../../models/ThreadIdToChat'
+import { MemberHashToChat } from '../../models/MemberHashToChat'
 import ChatService from '../../services/ChatService'
 import { UserIdToUserDetails } from '../../models/UserIdToUserDetails'
+import { generateMemberHash } from '../../models/MemberHash'
 
 type MessageInputBarProps = {
   readonly draftThreadUserDetails: null | UserDetails
   readonly setDraftThreadUserDetails: (arg: null | UserDetails) => void
-  readonly activeThread: number | null
-  readonly setActiveThread: (arg: number) => void
-  readonly threadIdToChat: ThreadIdToChat
-  readonly setThreadIdToChat: (arg: ThreadIdToChat) => void
+  readonly activeMemberHash: number | null
+  readonly setActiveMemberHash: (arg: number) => void
+  readonly memberHashToChat: MemberHashToChat
+  readonly setMemberHashToChat: (arg: MemberHashToChat) => void
   readonly userIdToUserDetails: UserIdToUserDetails
   readonly setUserIdToUserDetails: (arg: UserIdToUserDetails) => void
   readonly showUserHeads: boolean
@@ -21,10 +22,10 @@ type MessageInputBarProps = {
 export default function MessageInputBar({
   draftThreadUserDetails,
   setDraftThreadUserDetails,
-  activeThread,
-  setActiveThread,
-  threadIdToChat,
-  setThreadIdToChat,
+  activeMemberHash,
+  setActiveMemberHash,
+  memberHashToChat,
+  setMemberHashToChat,
   userIdToUserDetails,
   setUserIdToUserDetails,
   showUserHeads,
@@ -50,12 +51,12 @@ export default function MessageInputBar({
 
   const submitMessage = async () => {
     try {
-      if (messageValue && (draftThreadUserDetails || activeThread)) {
+      if (messageValue && (draftThreadUserDetails || activeMemberHash)) {
         const { userId } = LocalStorageService.getUserDetails()
 
         const members = draftThreadUserDetails
           ? [userId, draftThreadUserDetails.userId]
-          : threadIdToChat.get(activeThread!)!.members
+          : memberHashToChat.get(activeMemberHash!)!.members
 
         const { data } = await ChatService.postMessage({
           members,
@@ -70,6 +71,8 @@ export default function MessageInputBar({
             messages: [data.message]
           }
 
+          const draftMemberHash = generateMemberHash(data.members)
+
           const updatedUserIdToUserDetails = new Map(userIdToUserDetails)
           updatedUserIdToUserDetails.set(draftThreadUserDetails.userId, {
             username: draftThreadUserDetails.username,
@@ -77,18 +80,19 @@ export default function MessageInputBar({
           })
           setUserIdToUserDetails(updatedUserIdToUserDetails)
 
-          const updatedThreadIdToChat = new Map(threadIdToChat)
-          updatedThreadIdToChat.set(data.threadId, generatedChat)
-          setThreadIdToChat(updatedThreadIdToChat)
+          const memberHashToChatCopy = new Map(memberHashToChat)
+          memberHashToChatCopy.set(draftMemberHash, generatedChat)
+          setMemberHashToChat(memberHashToChatCopy)
 
-          setActiveThread(data.threadId)
+          setActiveMemberHash(draftMemberHash)
           setDraftThreadUserDetails(null)
           setShowUserHeads(false)
-        } else if (activeThread) {
-          const updatedThreadIdToChat = new Map(threadIdToChat)
-          const allMessages = updatedThreadIdToChat.get(activeThread)!.messages
+        } else if (activeMemberHash) {
+          const memberHashToChatCopy = new Map(memberHashToChat)
+          const allMessages =
+            memberHashToChatCopy.get(activeMemberHash)!.messages
           allMessages.push(data.message)
-          setThreadIdToChat(updatedThreadIdToChat)
+          setMemberHashToChat(memberHashToChatCopy)
         }
 
         setMessageValue('')
