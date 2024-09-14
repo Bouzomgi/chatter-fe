@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react'
 import LocalStorageService from '../../services/LocalStorageService'
 import UserDetails from '../../models/UserDetails'
 import { MemberHashToChat } from '../../models/MemberHashToChat'
-import ChatService from '../../services/ChatService'
+import ChatService from '../../services/requesters/ChatService'
 import { UserIdToUserDetails } from '../../models/UserIdToUserDetails'
 import { generateMemberHash } from '../../models/MemberHash'
 

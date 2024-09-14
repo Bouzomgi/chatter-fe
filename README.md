@@ -45,4 +45,15 @@ We will need our websocket to do two things:
 
 ---
 
-NEXT THING TO DO: REFACTOR!!
+## What do I need before release --
+
+- refactor frontend
+  - composition
+    - https://legacy.reactjs.org/docs/composition-vs-inheritance.html
+  - reducers for Conversation state
+  - idk about the websocket thing
+- add the "isActive" dot to chatters
+- make sure i am not duplicating my websockets + requests
+- fix unit tests
+- write integration tests
+- string up the AWS

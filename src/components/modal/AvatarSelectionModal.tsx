@@ -1,9 +1,10 @@
-import '../styles/Modal.scss'
-import '../styles/Arrow.scss'
+import '../../styles/layout/Modal.scss'
+import '../../styles/general/Arrow.scss'
+
 import { useEffect, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
-import SettingsService from '../services/SettingsService'
-import Avatar from '../models/Avatar'
+import SettingsService from '../../services/requesters/SettingsService'
+import Avatar from '../../models/Avatar'
 
 type AvatarSelectionModalProps = {
   readonly clearModal: () => void

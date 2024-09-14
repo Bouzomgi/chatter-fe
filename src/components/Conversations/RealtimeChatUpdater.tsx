@@ -3,7 +3,7 @@ import useWebSocket from 'react-use-websocket'
 import { useEffect } from 'react'
 import MessageNotificationPayload from 'chatter-be/src/websockets/MessageNotificationPayload'
 import { MemberHashToChat } from '../../models/MemberHashToChat'
-import ChatService from '../../services/ChatService'
+import ChatService from '../../services/requesters/ChatService'
 import {
   generateUserIdToUserDetails,
   UserIdToUserDetails

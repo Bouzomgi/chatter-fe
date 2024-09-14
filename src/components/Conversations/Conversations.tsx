@@ -1,9 +1,9 @@
-import '../../styles/Conversations.scss'
+import '../../styles/conversations/Conversations.scss'
 
-import Header from '../Header'
+import Header from '../layout/Header'
 import { UserHead } from './UserHead'
 import { useEffect, useState } from 'react'
-import ChatService from '../../services/ChatService'
+import ChatService from '../../services/requesters/ChatService'
 import {
   UserIdToUserDetails,
   generateUserIdToUserDetails

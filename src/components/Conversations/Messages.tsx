@@ -1,4 +1,5 @@
-import '../../styles/Message.scss'
+import '../../styles/conversations/Message.scss'
+
 import Message from './Message'
 import MessageType from '../../models/Message'
 import LocalStorageService from '../../services/LocalStorageService'

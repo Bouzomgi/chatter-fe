@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import eventEmitter from '../services/EventEmitter'
-import LocalStorageService from '../services/LocalStorageService'
+import eventEmitter from '../../services/EventEmitter'
+import LocalStorageService from '../../services/LocalStorageService'
 
 export const ProtectedRoutes = () => {
   const navigate = useNavigate()
