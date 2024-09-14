@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
 import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
 import { ExtractResponseBody } from './Extractors'
+import env from '../config'
 
 type LoginRequest = ExtractPathRequestBody<'/login', 'post'>
 type LoginResponse = ExtractResponseBody<'/login', 'post', HttpStatusCode.Ok>
@@ -24,7 +25,7 @@ export default class AuthService {
       LoginResponse,
       AxiosResponse<LoginResponse>,
       LoginRequest
-    >(`${process.env.REACT_APP_BACKEND_ENDPOINT}/login`, form, axiosConfig)
+    >(`${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/login`, form, axiosConfig)
   }
 
   static register(form: RegisterRequest) {
@@ -32,12 +33,12 @@ export default class AuthService {
       RegisterResponse,
       AxiosResponse<RegisterResponse>,
       RegisterRequest
-    >(`${process.env.REACT_APP_BACKEND_ENDPOINT}/register`, form)
+    >(`${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/register`, form)
   }
 
   static logout() {
     return axios.post<LogoutResponse, AxiosResponse<LogoutResponse>>(
-      `${process.env.REACT_APP_BACKEND_ENDPOINT}/logout`,
+      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/logout`,
       {},
       axiosConfig
     )
