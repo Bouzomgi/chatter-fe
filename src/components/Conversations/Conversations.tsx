@@ -2,46 +2,33 @@ import '../../styles/conversations/Conversations.scss'
 
 import Header from '../layout/Header'
 import { UserHead } from './UserHead'
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 import ChatService from '../../services/requesters/ChatService'
-import {
-  UserIdToUserDetails,
-  generateUserIdToUserDetails
-} from '../../models/UserIdToUserDetails'
-import {
-  MemberHashToChat,
-  generateMemberSetToChat
-} from '../../models/MemberHashToChat'
-import UserDetails from '../../models/UserDetails'
+import { generateUserIdToUserDetails } from '../../models/UserIdToUserDetails'
+import { generateMemberSetToChat } from '../../models/MemberHashToChat'
 import { ConversationBody } from './ConversationBody'
 import MessageInputBar from './MessageInputBar'
 import ChatHead from './ChatHead'
 import LocalStorageService from '../../services/LocalStorageService'
 import RealtimeChatUpdater from './RealtimeChatUpdater'
-import { MemberHash, generateMemberHash } from '../../models/MemberHash'
+import { generateMemberHash } from '../../models/MemberHash'
 import { Chat } from '../../models/Chat'
 
+import conversationReducer from '../reducers/conversation/Reducer'
+import { initialState as initialConversationState } from '../reducers/conversation/State'
+import {
+  initialize,
+  updateField,
+  wipeDraftThreadUserDetails,
+  updateActiveMemberHash,
+  toggleUserHeads
+} from '../reducers/conversation/ActionCreators'
+
 export default function Main() {
-  // activeMemberHash is a set of members of the active thread
-  const [activeMemberHash, setActiveMemberHash] = useState<null | MemberHash>(
-    null
+  const [state, dispatch] = useReducer(
+    conversationReducer,
+    initialConversationState
   )
-  const [showUserHeads, setShowUserHeads] = useState(false)
-
-  const [userHeads, setUserHeads] = useState<UserDetails[]>([])
-
-  const [userIdToUserDetails, setUserIdToUserDetails] =
-    useState<UserIdToUserDetails>(new Map())
-
-  const [memberHashToChat, setMemberHashToChat] = useState<MemberHashToChat>(
-    new Map()
-  )
-  const [hasInitializedMaps, setHasInitializedMaps] = useState(false)
-
-  const [draftThreadUserDetails, setDraftThreadUserDetails] =
-    useState<null | UserDetails>(null)
-
-  const [isTabActive, setIsTabActive] = useState(true)
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -50,13 +37,11 @@ export default function Main() {
         const generatedChatUserMap = generateUserIdToUserDetails(
           chatUserDetails.data
         )
-        setUserIdToUserDetails(generatedChatUserMap)
 
         const chats = await ChatService.getChats()
         const generatedChatMap = generateMemberSetToChat(chats.data)
-        setMemberHashToChat(generatedChatMap)
 
-        setHasInitializedMaps(true)
+        dispatch(initialize(generatedChatUserMap, generatedChatMap))
       } catch (err) {
         console.log(`fetch error: ${err}`)
         // Show some error message or go to error page
@@ -65,7 +50,8 @@ export default function Main() {
 
     fetchInitialData()
 
-    const handleVisibilityChange = () => setIsTabActive(!document.hidden)
+    const handleVisibilityChange = () =>
+      dispatch(updateField('isTabActive', !document.hidden))
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
@@ -75,41 +61,47 @@ export default function Main() {
   }, [])
 
   useEffect(() => {
-    if (hasInitializedMaps && memberHashToChat.size > 0) {
+    if (state.hasInitializedMaps && state.memberHashToChat.size > 0) {
       const sortedChats = getSortedChats()
-      setActiveMemberHash(generateMemberHash(sortedChats[0].members))
+      const updatedMemberHash = generateMemberHash(sortedChats[0].members)
+      dispatch(updateField('activeMemberHash', updatedMemberHash))
     }
-  }, [hasInitializedMaps])
+  }, [state.hasInitializedMaps])
 
   // view messages if they are the currently open thread
   useEffect(() => {
-    if (isTabActive && activeMemberHash) {
-      const activeChat = memberHashToChat.get(activeMemberHash)!
+    if (state.isTabActive && state.activeMemberHash) {
+      const activeChat = state.memberHashToChat.get(state.activeMemberHash)!
       cleanupUnseenMessage(activeChat)
     }
 
     getAreAnyUnseenMessages()
       ? (document.title = 'chatter!!!')
       : (document.title = 'chatter')
-  }, [hasInitializedMaps, activeMemberHash, memberHashToChat, isTabActive])
+  }, [
+    state.hasInitializedMaps,
+    state.activeMemberHash,
+    state.memberHashToChat,
+    state.isTabActive
+  ])
 
   useEffect(() => {
-    if (showUserHeads) {
+    if (state.showUserHeads) {
       const fetchUserHeads = async () => {
         const { data } = await ChatService.getUserHeads()
-        setUserHeads(data)
+        dispatch(updateField('userHeads', data))
       }
 
       fetchUserHeads()
     } else {
-      setDraftThreadUserDetails(null)
+      dispatch(wipeDraftThreadUserDetails())
     }
-  }, [showUserHeads])
+  }, [state.showUserHeads])
 
   const userId = LocalStorageService.getUserDetails().userId
 
   const getAreAnyUnseenMessages = () =>
-    !Array.from(memberHashToChat.values()).every(
+    !Array.from(state.memberHashToChat.values()).every(
       (elem) =>
         elem.unseenMessageId === null || elem.unseenMessageId === undefined
     )
@@ -119,28 +111,30 @@ export default function Main() {
       await ChatService.patchReadThread(chat.threadId)
 
       const chatMemberHash = generateMemberHash(chat.members)
-      const { unseenMessageId, ...rest } = memberHashToChat.get(chatMemberHash)!
+      const { unseenMessageId, ...rest } =
+        state.memberHashToChat.get(chatMemberHash)!
 
-      const memberHashToChatCopy = new Map(memberHashToChat)
+      const memberHashToChatCopy = new Map(state.memberHashToChat)
       memberHashToChatCopy.set(chatMemberHash, { ...rest })
-      setMemberHashToChat(memberHashToChatCopy)
+
+      dispatch(updateField('memberHashToChat', memberHashToChatCopy))
     }
   }
 
   const getSortedChats = () =>
-    [...memberHashToChat.values()].sort((i, j) => {
+    [...state.memberHashToChat.values()].sort((i, j) => {
       const firstMessageDate = new Date(i.messages.at(-1)!.createdAt)
       const secondMessageDate = new Date(j.messages.at(-1)!.createdAt)
       return firstMessageDate < secondMessageDate ? 1 : -1
     })
 
   const getActiveMemberSetUserDetails = () => {
-    if (activeMemberHash) {
-      const activeChat = memberHashToChat.get(activeMemberHash)!
+    if (state.activeMemberHash) {
+      const activeChat = state.memberHashToChat.get(state.activeMemberHash)!
       const otherMember = activeChat.members.filter(
         (elem) => elem !== userId
       )[0]
-      return userIdToUserDetails.get(otherMember)
+      return state.userIdToUserDetails.get(otherMember)
     }
     return undefined
   }
@@ -149,14 +143,15 @@ export default function Main() {
   const allChatHeads = getSortedChats().map((chat) => {
     const mostRecentMessage = chat.messages.at(-1)!
     const otherMember = chat.members.filter((elem) => elem !== userId)[0]
-    const chatUserDetails = userIdToUserDetails.get(otherMember)!
+    const chatUserDetails = state.userIdToUserDetails.get(otherMember)!
     const chatMemberHash = generateMemberHash(chat.members)
 
     const selectChatHead = async () => {
       try {
         // Read the thread and remove the unseenThread marker in the chatMap
         await cleanupUnseenMessage(chat)
-        setActiveMemberHash(chatMemberHash)
+
+        dispatch(updateField('activeMemberHash', chatMemberHash))
       } catch (err) {
         console.log(err)
       }
@@ -168,25 +163,24 @@ export default function Main() {
         {...chat}
         message={mostRecentMessage}
         onClick={selectChatHead}
-        isActive={chatMemberHash === activeMemberHash}
+        isActive={chatMemberHash === state.activeMemberHash}
         key={chat.threadId}
       />
     )
   })
 
-  const allUserHeads = userHeads.map((userHead) => (
+  const allUserHeads = state.userHeads.map((userHead) => (
     <UserHead
       {...userHead}
-      draftThreadUserDetails={draftThreadUserDetails}
+      draftThreadUserDetails={state.draftThreadUserDetails}
       onClick={() => {
         const memberHash = generateMemberHash([userId, userHead.userId])
-        const existingThread = memberHashToChat.get(memberHash)
+        const existingThread = state.memberHashToChat.get(memberHash)
 
         if (existingThread) {
-          setActiveMemberHash(memberHash)
-          setShowUserHeads(false)
+          dispatch(updateActiveMemberHash(memberHash))
         } else {
-          setDraftThreadUserDetails(userHead)
+          dispatch(updateField('draftThreadUserDetails', userHead))
         }
       }}
       key={userHead.userId}
@@ -196,9 +190,8 @@ export default function Main() {
   return (
     <div id='app'>
       <RealtimeChatUpdater
-        memberHashToChat={memberHashToChat}
-        setMemberHashToChat={setMemberHashToChat}
-        setUserIdToUserDetails={setUserIdToUserDetails}
+        memberHashToChat={state.memberHashToChat}
+        conversationDispatch={dispatch}
       />
       <Header isLoggedIn={true} />
       <div className='content conversations-view'>
@@ -207,15 +200,12 @@ export default function Main() {
             {/* <input type='text' placeholder='search' /> */}
           </div>
           <div className='message-head-container'>
-            {showUserHeads ? allUserHeads : allChatHeads}
+            {state.showUserHeads ? allUserHeads : allChatHeads}
           </div>
           <div className='new-conversation-container'>
             <button
-              className={'new-chat ' + (showUserHeads ? 'active' : '')}
-              onClick={() => {
-                setDraftThreadUserDetails(null)
-                setShowUserHeads(!showUserHeads)
-              }}
+              className={'new-chat ' + (state.showUserHeads ? 'active' : '')}
+              onClick={() => dispatch(toggleUserHeads())}
             >
               chat!
             </button>
@@ -223,30 +213,28 @@ export default function Main() {
         </div>
         <div className='right-content'>
           <div className='conversation-body'>
-            {draftThreadUserDetails ? (
+            {state.draftThreadUserDetails ? (
               <ConversationBody
-                username={draftThreadUserDetails.username}
+                username={state.draftThreadUserDetails.username}
                 messages={[]}
               />
-            ) : activeMemberHash ? (
+            ) : state.activeMemberHash ? (
               <ConversationBody
                 username={getActiveMemberSetUserDetails()!.username}
-                messages={memberHashToChat.get(activeMemberHash)!.messages}
+                messages={
+                  state.memberHashToChat.get(state.activeMemberHash)!.messages
+                }
               />
             ) : null}
           </div>
           <div className='message-bar-container'>
             <MessageInputBar
-              draftThreadUserDetails={draftThreadUserDetails}
-              setDraftThreadUserDetails={setDraftThreadUserDetails}
-              activeMemberHash={activeMemberHash}
-              setActiveMemberHash={setActiveMemberHash}
-              memberHashToChat={memberHashToChat}
-              setMemberHashToChat={setMemberHashToChat}
-              userIdToUserDetails={userIdToUserDetails}
-              setUserIdToUserDetails={setUserIdToUserDetails}
-              showUserHeads={showUserHeads}
-              setShowUserHeads={setShowUserHeads}
+              userIdToUserDetails={state.userIdToUserDetails}
+              activeMemberHash={state.activeMemberHash}
+              memberHashToChat={state.memberHashToChat}
+              draftThreadUserDetails={state.draftThreadUserDetails}
+              showUserHeads={state.showUserHeads}
+              dispatch={dispatch}
             />
           </div>
         </div>
