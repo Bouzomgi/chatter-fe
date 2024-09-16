@@ -13,6 +13,7 @@ import LocalStorageService from '../../services/LocalStorageService'
 import RealtimeChatUpdater from './RealtimeChatUpdater'
 import { generateMemberHash } from '../../models/MemberHash'
 import { Chat } from '../../models/Chat'
+import ConversationNav from './ConversationNav'
 
 import conversationReducer from '../reducers/conversation/Reducer'
 import { initialState as initialConversationState } from '../reducers/conversation/State'
@@ -20,8 +21,7 @@ import {
   initialize,
   updateField,
   wipeDraftThreadUserDetails,
-  updateActiveMemberHash,
-  toggleUserHeads
+  updateActiveMemberHash
 } from '../reducers/conversation/ActionCreators'
 
 export default function Main() {
@@ -195,22 +195,12 @@ export default function Main() {
       />
       <Header isLoggedIn={true} />
       <div className='content conversations-view'>
-        <div className='conversation-nav'>
-          <div className='search-container form-element'>
-            {/* <input type='text' placeholder='search' /> */}
-          </div>
-          <div className='message-head-container'>
-            {state.showUserHeads ? allUserHeads : allChatHeads}
-          </div>
-          <div className='new-conversation-container'>
-            <button
-              className={'new-chat ' + (state.showUserHeads ? 'active' : '')}
-              onClick={() => dispatch(toggleUserHeads())}
-            >
-              chat!
-            </button>
-          </div>
-        </div>
+        <ConversationNav
+          showUserHeads={state.showUserHeads}
+          allUserHeads={allUserHeads}
+          allChatHeads={allChatHeads}
+          dispatch={dispatch}
+        />
         <div className='right-content'>
           <div className='conversation-body'>
             {state.draftThreadUserDetails ? (
