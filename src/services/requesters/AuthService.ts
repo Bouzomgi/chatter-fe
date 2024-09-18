@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
 import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
-import { ExtractResponseBody } from './Extractors'
-import env from '../config'
+import { ExtractResponseBody } from '../Extractors'
+import env from '../../config'
 
 type LoginRequest = ExtractPathRequestBody<'/login', 'post'>
 type LoginResponse = ExtractResponseBody<'/login', 'post', HttpStatusCode.Ok>

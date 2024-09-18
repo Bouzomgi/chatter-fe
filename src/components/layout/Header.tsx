@@ -1,8 +1,9 @@
-import LocalStorageService from '../services/LocalStorageService'
-import '../styles/Header.scss'
+import '../../styles/layout/Header.scss'
+
+import LocalStorageService from '../../services/LocalStorageService'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import AuthService from '../services/AuthService'
+import AuthService from '../../services/requesters/AuthService'
 import Notifier from './Notifier'
 
 type HeaderProps = {

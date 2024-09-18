@@ -1,27 +1,22 @@
 import env from '../../config'
 import useWebSocket from 'react-use-websocket'
-import { useEffect } from 'react'
+import { useEffect, Dispatch } from 'react'
 import MessageNotificationPayload from 'chatter-be/src/websockets/MessageNotificationPayload'
 import { MemberHashToChat } from '../../models/MemberHashToChat'
-import ChatService from '../../services/ChatService'
-import {
-  generateUserIdToUserDetails,
-  UserIdToUserDetails
-} from '../../models/UserIdToUserDetails'
+import ChatService from '../../services/requesters/ChatService'
+import { generateUserIdToUserDetails } from '../../models/UserIdToUserDetails'
 import { generateMemberHash } from '../../models/MemberHash'
+import { Actions as ConversationActions } from '../reducers/conversation/Actions'
+import { updateField } from '../reducers/conversation/ActionCreators'
 
 type RealtimeChatUpdaterProps = {
   readonly memberHashToChat: MemberHashToChat
-  readonly setMemberHashToChat: (memberHashToChat: MemberHashToChat) => void
-  readonly setUserIdToUserDetails: (
-    UserIdToUserDetails: UserIdToUserDetails
-  ) => void
+  readonly conversationDispatch: Dispatch<ConversationActions>
 }
 
 export default function RealtimeChatUpdater({
   memberHashToChat,
-  setMemberHashToChat,
-  setUserIdToUserDetails
+  conversationDispatch
 }: RealtimeChatUpdaterProps) {
   const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
     env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT,
@@ -44,7 +39,9 @@ export default function RealtimeChatUpdater({
           const generatedChatUserMap = generateUserIdToUserDetails(
             chatUserDetails.data
           )
-          setUserIdToUserDetails(generatedChatUserMap)
+          conversationDispatch(
+            updateField('userIdToUserDetails', generatedChatUserMap)
+          )
         }
 
         const previousMessages =
@@ -60,7 +57,10 @@ export default function RealtimeChatUpdater({
 
         const memberHashToChatCopy = new Map(memberHashToChat)
         memberHashToChatCopy.set(sentMessageHash, chat)
-        setMemberHashToChat(memberHashToChatCopy)
+
+        conversationDispatch(
+          updateField('memberHashToChat', memberHashToChatCopy)
+        )
       }
 
       setData()
