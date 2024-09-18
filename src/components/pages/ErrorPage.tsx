@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import '../styles/ErrorPage.scss'
+import '../../styles/pages/ErrorPage.scss'
 
 import { useRouteError } from 'react-router-dom'
 

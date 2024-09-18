@@ -1,5 +1,3 @@
-import '../../styles/Conversations.scss'
-
 import MessageType from '../../models/Message'
 import { ConversationHeader } from './ConversationHeader'
 import { Messages } from './Messages'

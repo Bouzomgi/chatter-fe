@@ -1,4 +1,4 @@
-import '../styles/Form.scss'
+import '../../styles/layout/Form.scss'
 
 export default function EmptyFormInputRow() {
   return (

@@ -1,4 +1,4 @@
-import '../../styles/ChatHead.scss'
+import '../../styles/conversations/ChatHead.scss'
 
 import Avatar from '../../models/Avatar'
 import { Chat as ChatType } from '../../models/Chat'

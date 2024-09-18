@@ -1,8 +1,8 @@
 import { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
-import { ExtractResponseBody } from './Extractors'
+import { ExtractResponseBody } from '../Extractors'
 import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
-import axiosAuthInstance from './AuthInterceptor'
-import env from '../config'
+import axiosAuthInstance from '../AuthInterceptor'
+import env from '../../config'
 
 type DefaultAvatarResponse = ExtractResponseBody<
   '/authed/defaultAvatars',

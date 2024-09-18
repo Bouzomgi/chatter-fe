@@ -1,5 +1,3 @@
-import '../../styles/Conversations.scss'
-
 import { GoDot, GoDotFill } from 'react-icons/go'
 
 export type ConversationHeaderProps = {

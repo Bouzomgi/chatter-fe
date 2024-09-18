@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './Login'
-import Register from './Register'
-import Settings from './Settings'
-import ErrorPage from './ErrorPage'
-import Main from './Conversations/Conversations'
-import ProtectedRoutes from './ProtectedRoutes'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Settings from './pages/Settings'
+import ErrorPage from './pages/ErrorPage'
+import Main from './conversations/Conversations'
+import ProtectedRoutes from './layout/ProtectedRoutes'
 
 export default function App() {
   const router = createBrowserRouter([

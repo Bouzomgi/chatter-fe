@@ -1,4 +1,5 @@
-import '../../styles/ChatHead.scss'
+import '../../styles/conversations/ChatHead.scss'
+
 import arrow from '../../assets/arrow.svg'
 import UserDetails from '../../models/UserDetails'
 

@@ -1,14 +1,14 @@
-import '../styles/Form.scss'
-import '../styles/Settings.scss'
+import '../../styles/layout/Form.scss'
+import '../../styles/pages/Settings.scss'
 
-import Header from './Header'
-import arrow from '../assets/arrow.svg'
-import EmptyFormRow from './EmptyFormInputRow'
+import Header from '../layout/Header'
+import arrow from '../../assets/arrow.svg'
+import EmptyFormRow from '../form/EmptyFormInputRow'
 import { useState } from 'react'
-import AvatarSelectionModal from './AvatarSelectionModal'
-import LocalStorageService from '../services/LocalStorageService'
-import Avatar from '../models/Avatar'
-import SettingsService from '../services/SettingsService'
+import AvatarSelectionModal from '../modal/AvatarSelectionModal'
+import LocalStorageService from '../../services/LocalStorageService'
+import Avatar from '../../models/Avatar'
+import SettingsService from '../../services/requesters/SettingsService'
 import { useNavigate } from 'react-router-dom'
 
 const getCurrentAvatar = () => {
