@@ -3,7 +3,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Settings from './pages/Settings'
 import ErrorPage from './pages/ErrorPage'
-import Main from './conversations/Conversations'
+import Main from './abc/Conversations'
 import ProtectedRoutes from './layout/ProtectedRoutes'
 
 export default function App() {
