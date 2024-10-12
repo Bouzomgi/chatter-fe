@@ -31,6 +31,9 @@ jobs:
 
       - name: Create Production Build
         run: CI='' npm run build
+        env:
+          REACT_APP_BACKEND_HTTP_ENDPOINT: ${{ vars.REACT_APP_BACKEND_HTTP_ENDPOINT }}
+          REACT_APP_BACKEND_WEBSOCKET_ENDPOINT: ${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -43,3 +46,8 @@ jobs:
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id EQEEM8QWW3YFX --paths "/*"
+
+      - name: Run Integration Tests
+        uses: cypress-io/github-action@v6
+        with:
+          config-file: cypress.config.prod.ts

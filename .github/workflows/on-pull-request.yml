@@ -12,7 +12,7 @@ concurrency:
 jobs:
   on-pr:
     runs-on: 'ubuntu-latest'
-    environment: prod
+    environment: test
     permissions:
       contents: read
     steps:
@@ -30,3 +30,11 @@ jobs:
 
       - name: Check Lint
         run: npm run check-lint
+
+      - name: Run Integration Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+        env:
+          REACT_APP_BACKEND_HTTP_ENDPOINT: ${{ vars.REACT_APP_BACKEND_HTTP_ENDPOINT }}
+          REACT_APP_BACKEND_WEBSOCKET_ENDPOINT: ${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }}
