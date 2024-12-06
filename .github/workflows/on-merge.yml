@@ -46,15 +46,12 @@ jobs:
       - name: Sync webserver build to S3
         run: aws s3 sync ./build s3://chatter-webserver
 
-      - name: Find Cloudfront distribution id
+      - name: Find CloudFront distribution id
         id: get-id
         run: |
-          DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@, 'chitchatter.link')]].Id | [0]" --output text)
-          if [ -z "$DISTRIBUTION_ID" ]; then
-            echo "Error: No CloudFront distribution ID found. Exiting with failure."
-            exit 1
-          fi
-          echo "::set-output name=distribution-id::$DISTRIBUTION_ID"
+          ./scripts/find-cloudfront-id.sh
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id ${{ steps.get-id.outputs.distribution-id }} --paths "/*"
