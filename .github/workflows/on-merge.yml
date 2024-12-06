@@ -49,7 +49,7 @@ jobs:
       - name: Find CloudFront distribution id
         id: get-id
         run: |
-          chmod -x ./scripts/find-cloudfront-id.sh
+          chmod +x ./scripts/find-cloudfront-id.sh
           ./scripts/find-cloudfront-id.sh
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
