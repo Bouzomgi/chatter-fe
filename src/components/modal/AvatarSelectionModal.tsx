@@ -21,7 +21,7 @@ export default function AvatarSelectionModal({
   async function setDefaultAvatars() {
     try {
       const avatars = await SettingsService.getDefaultAvatars()
-      setAvatars(avatars.data.defaultAvatars)
+      setAvatars(avatars.data)
     } catch (err) {
       console.log(err)
       setError('Could not get default avatars')

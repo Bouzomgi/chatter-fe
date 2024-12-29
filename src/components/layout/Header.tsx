@@ -41,9 +41,8 @@ function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
 
   return (
     <div className='header'>
-      <Notifier />
       <h1>chatter</h1>
-      {isLoggedIn && options}
+      {isLoggedIn && options && <Notifier />}
     </div>
   )
 }

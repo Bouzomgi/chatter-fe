@@ -68,8 +68,17 @@ export default function Register() {
       } else {
         setError('Could not register account')
       }
-    } else if (axiosError.code === 'ECONNABORTED') {
-      setError('Request timed out')
+    } else if (axiosError.request) {
+      if (axiosError.code === 'ECONNABORTED') {
+        setError('Request timed out')
+      } else if (
+        axiosError.code === 'ECONNREFUSED' ||
+        axiosError.code === 'ERR_NETWORK'
+      ) {
+        setError('Could not connect to server')
+      } else {
+        setError('No response from the server')
+      }
     } else {
       setError('Unknown error')
     }

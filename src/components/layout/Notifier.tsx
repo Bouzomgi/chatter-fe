@@ -1,6 +1,6 @@
 import useWebSocket from 'react-use-websocket'
 import { useEffect } from 'react'
-import MessageNotificationPayload from 'chatter-be/src/websockets/MessageNotificationPayload'
+import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
 
 const Notifier = () => {
   const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
@@ -17,7 +17,7 @@ const Notifier = () => {
   // Handle WebSocket messages
   useEffect(() => {
     if (lastJsonMessage && isTabInactive()) {
-      document.title = 'Chatter!!!' // Change the title if the tab is inactive and a message arrives
+      document.title = 'chatter!!!' // Change the title if the tab is inactive and a message arrives
     }
   }, [lastJsonMessage])
 

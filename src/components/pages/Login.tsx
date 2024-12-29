@@ -65,13 +65,24 @@ export default function Login() {
         setError('Username does not exist')
       } else if (axiosError.response.status === HttpStatusCode.Unauthorized) {
         setError('Invalid password')
+      } else if (
+        axiosError.response.status === HttpStatusCode.InternalServerError
+      ) {
+        setError('Server could not process request')
       } else {
         setError('Could not login')
       }
-    } else if (axiosError.code === 'ECONNABORTED') {
-      setError('Request timed out')
-    } else if (axiosError.code === 'ECONNREFUSED') {
-      setError('Could not connect to back end')
+    } else if (axiosError.request) {
+      if (axiosError.code === 'ECONNABORTED') {
+        setError('Request timed out')
+      } else if (
+        axiosError.code === 'ECONNREFUSED' ||
+        axiosError.code === 'ERR_NETWORK'
+      ) {
+        setError('Could not connect to server')
+      } else {
+        setError('No response from the server')
+      }
     } else {
       setError('Unknown error')
     }

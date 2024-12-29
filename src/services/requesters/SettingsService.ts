@@ -5,7 +5,7 @@ import axiosAuthInstance from '../AuthInterceptor'
 import env from '../../config'
 
 type DefaultAvatarResponse = ExtractResponseBody<
-  '/authed/defaultAvatars',
+  '/api/authed/defaultAvatars',
   'get',
   HttpStatusCode.Ok
 >
@@ -14,9 +14,12 @@ type SettingsForm = {
   avatar: string
 }
 
-type SetSettingsRequest = ExtractPathRequestBody<'/authed/setSettings', 'post'>
+type SetSettingsRequest = ExtractPathRequestBody<
+  '/api/authed/setSettings',
+  'post'
+>
 type SetSettingsResponse = ExtractResponseBody<
-  '/authed/setSettings',
+  '/api/authed/setSettings',
   'post',
   HttpStatusCode.Ok
 >
@@ -31,7 +34,7 @@ export default class SettingsService {
       DefaultAvatarResponse,
       AxiosResponse<DefaultAvatarResponse>
     >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/authed/defaultAvatars`,
+      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/defaultAvatars`,
       axiosConfig
     )
   }
@@ -42,7 +45,7 @@ export default class SettingsService {
       AxiosResponse<SetSettingsResponse>,
       SetSettingsRequest
     >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/authed/setSettings`,
+      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/setSettings`,
       settingsForm,
       axiosConfig
     )
