@@ -1,28 +1,20 @@
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import eventEmitter from '../../services/EventEmitter'
+import { Navigate, Outlet } from 'react-router-dom'
 import LocalStorageService from '../../services/LocalStorageService'
+import ProtectedHandler from './authorizationHandlers/ProtectedHandler'
 
-export const ProtectedRoutes = () => {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const handleUnauthorized = () => {
-      console.log('unauthorized')
-      navigate('/')
-    }
-    eventEmitter.on('unauthorized', handleUnauthorized)
-
-    return () => {
-      eventEmitter.off('unauthorized', handleUnauthorized)
-    }
-  }, [navigate])
-
-  return LocalStorageService.areUserDetailsSet() ? (
-    <Outlet />
+/*
+  We could just let the ProtectedHandler deal with kicking any unauthed users
+  out. But if we do it this way with a little bit of duplicated logic, an
+  unauthorized user won't even hit the protected page at all. 
+*/
+export const ProtectedRoutes = () =>
+  LocalStorageService.areUserDetailsSet() ? (
+    <>
+      <ProtectedHandler />
+      <Outlet />
+    </>
   ) : (
     <Navigate to='/' replace={true} />
   )
-}
 
 export default ProtectedRoutes

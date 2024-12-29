@@ -2,7 +2,7 @@ import useWebSocket from 'react-use-websocket'
 import { useEffect } from 'react'
 import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
 
-const Notifier = () => {
+function Notifier() {
   const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
     process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT || '',
     {
@@ -21,7 +21,8 @@ const Notifier = () => {
     }
   }, [lastJsonMessage])
 
-  return <span className='nodisplay' />
+  return null
+  // return <span id='notifier' className='nodisplay' />
 }
 
 export default Notifier

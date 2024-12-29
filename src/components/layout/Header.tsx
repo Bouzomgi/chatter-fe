@@ -1,18 +1,24 @@
 import '../../styles/layout/Header.scss'
 
 import LocalStorageService from '../../services/LocalStorageService'
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import AuthService from '../../services/requesters/AuthService'
 import Notifier from './Notifier'
 
-type HeaderProps = {
-  readonly isLoggedIn: boolean
-  readonly onSettingsPage?: boolean
-}
+function Header() {
+  const location = useLocation()
 
-function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
   const [isLogoutFailure, setIsLogoutFailure] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    LocalStorageService.areUserDetailsSet()
+  )
+
+  useEffect(() => {
+    setIsLoggedIn(LocalStorageService.areUserDetailsSet())
+  }, [location])
+
+  const isOnSettingsPage = () => location.pathname.includes('settings')
 
   const navigate = useNavigate()
 
@@ -30,7 +36,7 @@ function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
 
   const options = (
     <div className='options'>
-      <Link to='/settings' className={onSettingsPage ? 'active' : ''}>
+      <Link to='/settings' className={isOnSettingsPage() ? 'active' : ''}>
         settings
       </Link>
       <button className={isLogoutFailure ? 'failure' : ''} onClick={logout}>
@@ -42,7 +48,8 @@ function Header({ isLoggedIn, onSettingsPage }: HeaderProps) {
   return (
     <div className='header'>
       <h1>chatter</h1>
-      {isLoggedIn && options && <Notifier />}
+      {isLoggedIn && options}
+      {isLoggedIn && <Notifier />}
     </div>
   )
 }

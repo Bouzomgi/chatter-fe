@@ -12,10 +12,10 @@ import SettingsService from '../../services/requesters/SettingsService'
 import { useNavigate } from 'react-router-dom'
 
 const getCurrentAvatar = () => {
-  const { avatarName, avatarUrl } = LocalStorageService.getUserDetails()
+  const { avatar } = LocalStorageService.getUserDetails()
   return {
-    name: avatarName,
-    url: avatarUrl
+    name: avatar.name,
+    url: avatar.url
   }
 }
 
@@ -47,44 +47,39 @@ export default function Settings() {
   }
 
   return (
-    <div id='app'>
-      <Header isLoggedIn={true} onSettingsPage={true} />
-      <div className='content'>
-        {showAvatarSelectionModal && (
-          <AvatarSelectionModal
-            clearModal={() => setShowAvatarSelectionModal(false)}
-            setCurrentSelectedAvatar={setCurrentSelectedAvatar}
-          />
-        )}
+    <div className='content'>
+      {showAvatarSelectionModal && (
+        <AvatarSelectionModal
+          clearModal={() => setShowAvatarSelectionModal(false)}
+          setCurrentSelectedAvatar={setCurrentSelectedAvatar}
+        />
+      )}
 
-        <div className='form-centerer'>
-          <div className='form'>
-            <h1>settings</h1>
-            <div className='form-row'>
-              <span className='form-label' id='avatar-form-label'>
-                current avatar
-              </span>
+      <div className='form-centerer'>
+        <div className='form'>
+          <h1>settings</h1>
+          <div className='form-row'>
+            <span className='form-label' id='avatar-form-label'>
+              current avatar
+            </span>
+            <img
+              className='avatar'
+              id='current-avatar'
+              src={currentSelectedAvatar.url}
+              alt='current avatar'
+              onClick={() => setShowAvatarSelectionModal(true)}
+            />
+          </div>
+          <EmptyFormRow />
+          <EmptyFormRow />
+          <div className='submission-row'>
+            <button onClick={submitSettings}>
               <img
-                className='avatar'
-                id='current-avatar'
-                src={currentSelectedAvatar.url}
-                alt='current avatar'
-                onClick={() => setShowAvatarSelectionModal(true)}
+                className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
+                src={arrow}
+                alt='next arrow'
               />
-            </div>
-            <EmptyFormRow />
-            <EmptyFormRow />
-            <div className='submission-row'>
-              <button onClick={submitSettings}>
-                <img
-                  className={
-                    'selection-arrow' + (isArrowShaking ? ' shake' : '')
-                  }
-                  src={arrow}
-                  alt='next arrow'
-                />
-              </button>
-            </div>
+            </button>
           </div>
         </div>
       </div>

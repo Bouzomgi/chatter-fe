@@ -109,51 +109,46 @@ export default function Register() {
   }
 
   return (
-    <div id='app'>
-      <Header isLoggedIn={false} />
-      <div className='content form-centerer'>
-        <div className='form'>
-          <h1>sign up</h1>
-          <div className='input-section'>
-            <FormField
-              fieldName='email'
-              value={registerForm.email}
-              assignInput={assignInput}
-              error={errors.email}
-            />
-            <FormField
-              fieldName='username'
-              value={registerForm.username}
-              assignInput={assignInput}
-              error={errors.username}
-            />
-            <FormField
-              fieldName='password'
-              value={registerForm.password}
-              assignInput={assignInput}
-              error={errors.password}
-            />
+    <div className='content form-centerer'>
+      <div className='form'>
+        <h1>sign up</h1>
+        <div className='input-section'>
+          <FormField
+            fieldName='email'
+            value={registerForm.email}
+            assignInput={assignInput}
+            error={errors.email}
+          />
+          <FormField
+            fieldName='username'
+            value={registerForm.username}
+            assignInput={assignInput}
+            error={errors.username}
+          />
+          <FormField
+            fieldName='password'
+            value={registerForm.password}
+            assignInput={assignInput}
+            error={errors.password}
+          />
+        </div>
+        <div className='submission'>
+          <div className='submission-message'>
+            <span className='success'>{response}</span>
+            <span className='failure'>{error}</span>
+            {!(response || error) && <span className='placeholder' />}
           </div>
-          <div className='submission'>
-            <div className='submission-message'>
-              <span className='success'>{response}</span>
-              <span className='failure'>{error}</span>
-              {!(response || error) && <span className='placeholder' />}
-            </div>
-            <div className='submission-row'>
-              <Link className='alternate-form-text' to='/'>
-                login?
-              </Link>
-              <button onClick={submitRegistration}>
-                <img
-                  className={
-                    'selection-arrow' + (isArrowShaking ? ' shake' : '')
-                  }
-                  src={arrow}
-                  alt='next arrow'
-                />
-              </button>
-            </div>
+          <div className='submission-row'>
+            <Link className='alternate-form-text' to='/'>
+              login?
+            </Link>
+            <button onClick={submitRegistration}>
+              <img
+                className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
+                src={arrow}
+                alt='next arrow'
+              />
+            </button>
           </div>
         </div>
       </div>

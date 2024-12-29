@@ -121,45 +121,40 @@ export default function Login() {
   }
 
   return (
-    <div id='app'>
-      <Header isLoggedIn={false} />
-      <div className='content form-centerer'>
-        <div className='form'>
-          <h1>login</h1>
-          <div className='input-section'>
-            <FormField
-              fieldName='username'
-              value={loginForm.username}
-              assignInput={assignInput}
-              error={errors.username}
-            />
-            <FormField
-              fieldName='password'
-              value={loginForm.password}
-              assignInput={assignInput}
-              error={errors.password}
-            />
-            <EmptyFormRow />
+    <div className='content form-centerer'>
+      <div className='form'>
+        <h1>login</h1>
+        <div className='input-section'>
+          <FormField
+            fieldName='username'
+            value={loginForm.username}
+            assignInput={assignInput}
+            error={errors.username}
+          />
+          <FormField
+            fieldName='password'
+            value={loginForm.password}
+            assignInput={assignInput}
+            error={errors.password}
+          />
+          <EmptyFormRow />
+        </div>
+        <div className='submission'>
+          <div className='submission-message'>
+            <span className='failure'>{error}</span>
+            {!error && <span className='placeholder' />}
           </div>
-          <div className='submission'>
-            <div className='submission-message'>
-              <span className='failure'>{error}</span>
-              {!error && <span className='placeholder' />}
-            </div>
-            <div className='submission-row'>
-              <Link className='alternate-form-text' to='/register'>
-                register?
-              </Link>
-              <button onClick={submitLogin}>
-                <img
-                  className={
-                    'selection-arrow' + (isArrowShaking ? ' shake' : '')
-                  }
-                  src={arrow}
-                  alt='next arrow'
-                />
-              </button>
-            </div>
+          <div className='submission-row'>
+            <Link className='alternate-form-text' to='/register'>
+              register?
+            </Link>
+            <button onClick={submitLogin}>
+              <img
+                className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
+                src={arrow}
+                alt='next arrow'
+              />
+            </button>
           </div>
         </div>
       </div>

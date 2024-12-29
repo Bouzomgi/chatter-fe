@@ -30,7 +30,7 @@ export default class LocalStorageService {
       : false
   }
 
-  static getUserDetails() {
+  static getUserDetails(): UserDetails {
     const userId = localStorage.getItem('userId')
     const username = localStorage.getItem('username')
     const avatarName = localStorage.getItem('avatarName')
@@ -40,8 +40,10 @@ export default class LocalStorageService {
       return {
         userId: Number(userId),
         username,
-        avatarName,
-        avatarUrl
+        avatar: {
+          name: avatarName,
+          url: avatarUrl
+        }
       }
     } else {
       throw new Error('could not get user details')

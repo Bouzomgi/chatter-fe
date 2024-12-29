@@ -188,45 +188,38 @@ export default function Main() {
   ))
 
   return (
-    <div id='app'>
-      <RealtimeChatUpdater
-        memberHashToChat={state.memberHashToChat}
-        conversationDispatch={dispatch}
+    <div className='content conversations-view'>
+      <ConversationNav
+        showUserHeads={state.showUserHeads}
+        allUserHeads={allUserHeads}
+        allChatHeads={allChatHeads}
+        dispatch={dispatch}
       />
-      <Header isLoggedIn={true} />
-      <div className='content conversations-view'>
-        <ConversationNav
-          showUserHeads={state.showUserHeads}
-          allUserHeads={allUserHeads}
-          allChatHeads={allChatHeads}
-          dispatch={dispatch}
-        />
-        <div className='right-content'>
-          <div className='conversation-body'>
-            {state.draftThreadUserDetails ? (
-              <ConversationBody
-                username={state.draftThreadUserDetails.username}
-                messages={[]}
-              />
-            ) : state.activeMemberHash ? (
-              <ConversationBody
-                username={getActiveMemberSetUserDetails()!.username}
-                messages={
-                  state.memberHashToChat.get(state.activeMemberHash)!.messages
-                }
-              />
-            ) : null}
-          </div>
-          <div className='message-bar-container'>
-            <MessageInputBar
-              userIdToUserDetails={state.userIdToUserDetails}
-              activeMemberHash={state.activeMemberHash}
-              memberHashToChat={state.memberHashToChat}
-              draftThreadUserDetails={state.draftThreadUserDetails}
-              showUserHeads={state.showUserHeads}
-              dispatch={dispatch}
+      <div className='right-content'>
+        <div className='conversation-body'>
+          {state.draftThreadUserDetails ? (
+            <ConversationBody
+              username={state.draftThreadUserDetails.username}
+              messages={[]}
             />
-          </div>
+          ) : state.activeMemberHash ? (
+            <ConversationBody
+              username={getActiveMemberSetUserDetails()!.username}
+              messages={
+                state.memberHashToChat.get(state.activeMemberHash)!.messages
+              }
+            />
+          ) : null}
+        </div>
+        <div className='message-bar-container'>
+          <MessageInputBar
+            userIdToUserDetails={state.userIdToUserDetails}
+            activeMemberHash={state.activeMemberHash}
+            memberHashToChat={state.memberHashToChat}
+            draftThreadUserDetails={state.draftThreadUserDetails}
+            showUserHeads={state.showUserHeads}
+            dispatch={dispatch}
+          />
         </div>
       </div>
     </div>
