@@ -19,7 +19,7 @@ export default function RealtimeChatUpdater({
   conversationDispatch
 }: RealtimeChatUpdaterProps) {
   const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
-    env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT,
+    `${env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`,
     {
       share: true,
       shouldReconnect: () => true

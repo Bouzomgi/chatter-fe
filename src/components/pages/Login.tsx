@@ -4,7 +4,6 @@ import '../../styles/general/Arrow.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import arrow from '../../assets/arrow.svg'
-import Header from '../layout/Header'
 import AuthService from '../../services/requesters/AuthService'
 import axios, { AxiosError, HttpStatusCode } from 'axios'
 import { ValidationError } from 'yup'
@@ -130,17 +129,19 @@ export default function Login() {
             value={loginForm.username}
             assignInput={assignInput}
             error={errors.username}
+            dataCy='username-field'
           />
           <FormField
             fieldName='password'
             value={loginForm.password}
             assignInput={assignInput}
             error={errors.password}
+            dataCy='password-field'
           />
           <EmptyFormRow />
         </div>
         <div className='submission'>
-          <div className='submission-message'>
+          <div className='submission-message' data-cy='submission-message'>
             <span className='failure'>{error}</span>
             {!error && <span className='placeholder' />}
           </div>
@@ -148,7 +149,7 @@ export default function Login() {
             <Link className='alternate-form-text' to='/register'>
               register?
             </Link>
-            <button onClick={submitLogin}>
+            <button onClick={submitLogin} data-cy='submit'>
               <img
                 className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
                 src={arrow}

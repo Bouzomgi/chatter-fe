@@ -118,22 +118,25 @@ export default function Register() {
             value={registerForm.email}
             assignInput={assignInput}
             error={errors.email}
+            dataCy='email-field'
           />
           <FormField
             fieldName='username'
             value={registerForm.username}
             assignInput={assignInput}
             error={errors.username}
+            dataCy='username-field'
           />
           <FormField
             fieldName='password'
             value={registerForm.password}
             assignInput={assignInput}
             error={errors.password}
+            dataCy='password-field'
           />
         </div>
         <div className='submission'>
-          <div className='submission-message'>
+          <div className='submission-message' data-cy='submission-message'>
             <span className='success'>{response}</span>
             <span className='failure'>{error}</span>
             {!(response || error) && <span className='placeholder' />}
@@ -142,7 +145,7 @@ export default function Register() {
             <Link className='alternate-form-text' to='/'>
               login?
             </Link>
-            <button onClick={submitRegistration}>
+            <button onClick={submitRegistration} data-cy='submit'>
               <img
                 className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
                 src={arrow}

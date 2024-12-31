@@ -4,7 +4,7 @@ import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotifica
 
 function Notifier() {
   const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
-    process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT || '',
+    `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed` || '',
     {
       share: true,
       shouldReconnect: () => true
@@ -19,10 +19,13 @@ function Notifier() {
     if (lastJsonMessage && isTabInactive()) {
       document.title = 'chatter!!!' // Change the title if the tab is inactive and a message arrives
     }
+
+    return () => {
+      document.title = 'chatter'
+    }
   }, [lastJsonMessage])
 
   return null
-  // return <span id='notifier' className='nodisplay' />
 }
 
 export default Notifier

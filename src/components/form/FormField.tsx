@@ -3,11 +3,18 @@ type FormFieldProps = {
   readonly value: string
   readonly assignInput: (e: React.ChangeEvent<HTMLInputElement>) => void
   readonly error: string
+  readonly dataCy?: string
 }
 
-function FormField({ fieldName, value, assignInput, error }: FormFieldProps) {
+function FormField({
+  fieldName,
+  value,
+  assignInput,
+  error,
+  dataCy
+}: FormFieldProps) {
   return (
-    <div className='form-input-row'>
+    <div className='form-input-row' data-cy={dataCy}>
       <input
         type='text'
         id={fieldName}

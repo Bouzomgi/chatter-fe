@@ -45,15 +45,12 @@ We will need our websocket to do two things:
 
 ---
 
-## What do I need before release --
+## Cypress Testing Approach
 
-- refactor frontend
-  - composition
-    - https://legacy.reactjs.org/docs/composition-vs-inheritance.html
-  - reducers for Conversation state
-  - idk about the websocket thing
-- add the "isActive" dot to chatters
-- make sure i am not duplicating my websockets + requests
-- fix unit tests
-- write integration tests
-- string up the AWS
+- Login
+  - Block login if a field is not inputted
+  - On successful login, a cookie should be returned
+    - should be taken to chatroom page
+  - On failed login, should throw error
+  - Register button should take you to registration
+- Register

@@ -16,8 +16,6 @@ const StandardHandler = () => {
   }
 
   useEffect(() => {
-    handleAuthorized()
-
     document.addEventListener('visibilitychange', handleAuthorized)
     document.addEventListener('focus', handleAuthorized)
 

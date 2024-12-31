@@ -46,11 +46,11 @@ function Header() {
   )
 
   return (
-    <div className='header'>
+    <header className='header'>
       <h1>chatter</h1>
       {isLoggedIn && options}
       {isLoggedIn && <Notifier />}
-    </div>
+    </header>
   )
 }
 

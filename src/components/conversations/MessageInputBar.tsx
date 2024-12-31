@@ -3,7 +3,6 @@ import LocalStorageService from '../../services/LocalStorageService'
 import ChatService from '../../services/requesters/ChatService'
 import { generateMemberHash, MemberHash } from '../../models/MemberHash'
 import {
-  ConversationState,
   SendMessageToNewConversationAction,
   UpdateFieldAction
 } from '../reducers/conversation/Actions'
