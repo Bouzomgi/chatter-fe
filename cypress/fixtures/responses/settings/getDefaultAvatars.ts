@@ -1,4 +1,13 @@
-res = [
+import { ExtractResponseBody } from '@src/services/Extractors'
+import { HttpStatusCode } from 'axios'
+
+type DefaultAvatarsResponse = ExtractResponseBody<
+  '/api/authed/defaultAvatars',
+  'get',
+  HttpStatusCode.Ok
+>
+
+const defaultAvatarsResponse: DefaultAvatarsResponse = [
   {
     name: 'avatars/default/avatar1.svg',
     url: 'http://0.0.0.0:4566/local-chatter-storage/avatars/default/avatar1.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=test%2F20241231%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241231T013553Z&X-Amz-Expires=60&X-Amz-Signature=07d7fb165bc106677c62a42cac3527064585dd6f5a3993cdc62d345b1912998d&X-Amz-SignedHeaders=host&x-id=GetObject'
@@ -36,3 +45,5 @@ res = [
     url: 'http://0.0.0.0:4566/local-chatter-storage/avatars/default/avatar9.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=test%2F20241231%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241231T013553Z&X-Amz-Expires=60&X-Amz-Signature=3a79414b33ac233894b13211bf812e450dfa12426db66610373bcf725f16ced8&X-Amz-SignedHeaders=host&x-id=GetObject'
   }
 ]
+
+export { defaultAvatarsResponse }

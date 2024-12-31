@@ -1,5 +1,6 @@
 import { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
+import { loginRequest } from 'cypress/fixtures/responses/auth/postLogin'
 
 type LoginResponse = ExtractResponseBody<
   '/api/login',

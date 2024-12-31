@@ -1,4 +1,13 @@
-res = [
+import { ExtractResponseBody } from '@src/services/Extractors'
+import { HttpStatusCode } from 'axios'
+
+type UserHeadsResponse = ExtractResponseBody<
+  '/api/authed/userHeads',
+  'get',
+  HttpStatusCode.Ok
+>
+
+const userHeadsResponse: UserHeadsResponse = [
   {
     userId: 6,
     username: 'brian',
@@ -48,3 +57,5 @@ res = [
     }
   }
 ]
+
+export { userHeadsResponse }

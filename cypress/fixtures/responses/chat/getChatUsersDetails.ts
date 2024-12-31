@@ -1,4 +1,13 @@
-res = [
+import { ExtractResponseBody } from '@src/services/Extractors'
+import { HttpStatusCode } from 'axios'
+
+type ChatUsersDetailsResponse = ExtractResponseBody<
+  '/api/authed/chatUsersDetails',
+  'get',
+  HttpStatusCode.Ok
+>
+
+const chatUsersDetailsResponse: ChatUsersDetailsResponse = [
   {
     userId: 2,
     username: 'britta',
@@ -24,3 +33,5 @@ res = [
     }
   }
 ]
+
+export { chatUsersDetailsResponse }

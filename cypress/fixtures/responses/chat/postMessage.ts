@@ -1,9 +1,20 @@
-req = {
+import { ExtractPathRequestBody } from '@openapi/typeExtractors'
+import { ExtractResponseBody } from '@src/services/Extractors'
+import { HttpStatusCode } from 'axios'
+
+type MessageRequest = ExtractPathRequestBody<'/api/authed/message', 'post'>
+type MessageResponse = ExtractResponseBody<
+  '/api/authed/message',
+  'post',
+  HttpStatusCode.Created
+>
+
+const messageRequest = {
   members: [1, 2],
   content: 'Send from Cypress!'
 }
 
-res = {
+const messageResponse = {
   conversationId: 1,
   threadId: 1,
   members: [1, 2],
@@ -14,3 +25,5 @@ res = {
     content: 'Send from Cypress!'
   }
 }
+
+export { messageRequest, messageResponse }

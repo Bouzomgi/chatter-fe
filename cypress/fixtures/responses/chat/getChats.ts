@@ -1,4 +1,13 @@
-res = [
+import { ExtractResponseBody } from '@src/services/Extractors'
+import { HttpStatusCode } from 'axios'
+
+type ChatsResponse = ExtractResponseBody<
+  '/api/authed/chats',
+  'get',
+  HttpStatusCode.Ok
+>
+
+const chatsResponse: ChatsResponse = [
   {
     conversationId: 1,
     threadId: 1,
@@ -66,7 +75,7 @@ res = [
     conversationId: 2,
     threadId: 3,
     members: [1, 3],
-    unseenMessageId: null,
+    unseenMessageId: undefined,
     messages: [
       {
         messageId: 10,
@@ -91,3 +100,5 @@ res = [
     ]
   }
 ]
+
+export { chatsResponse }
