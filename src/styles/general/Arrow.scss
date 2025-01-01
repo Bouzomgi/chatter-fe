@@ -1,11 +1,18 @@
 @use '../index.scss';
 
-img.selection-arrow {
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  margin-left: auto;
+}
+
+img.submission-arrow {
   width: 100%;
   float: right;
 }
 
-img.selection-arrow:hover {
+img.submission-arrow:hover {
   cursor: pointer;
   rotate: 4deg;
   filter: drop-shadow(2px 4px 1px index.$primary-color);
@@ -30,7 +37,7 @@ img.selection-arrow:hover {
   animation-iteration-count: 1;
 }
 
-img.selection-arrow.selected {
+img.submission-arrow.selected {
   rotate: 4deg;
   filter: drop-shadow(2px 4px 1px index.$primary-color);
 }

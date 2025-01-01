@@ -2,6 +2,7 @@ import '../../styles/conversations/ChatHead.scss'
 
 import arrow from '../../assets/arrow.svg'
 import UserDetails from '../../models/UserDetails'
+import SubmissionArrow from '../form/SubmissionArrow'
 
 type UserHeadProps = {
   readonly draftThreadUserDetails: null | UserDetails
@@ -23,12 +24,7 @@ export function UserHead({
       <img className='avatar' src={avatar.url} alt={avatar.name} />
       <span className='username'>{username}</span>
       <span className='arrow-container'>
-        <img
-          className={'selection-arrow' + (isSelected ? ' selected' : '')}
-          src={arrow}
-          alt='next arrow'
-          onClick={onClick}
-        />
+        <SubmissionArrow onSubmit={onClick} isSelected={isSelected} />
       </span>
     </div>
   )

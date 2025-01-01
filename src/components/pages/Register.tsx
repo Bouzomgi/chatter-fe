@@ -3,8 +3,7 @@ import '../../styles/general/Arrow.scss'
 
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import arrow from '../../assets/arrow.svg'
-import Header from '../layout/Header'
+import SubmissionArrow from '../form/SubmissionArrow'
 import AuthService from '../../services/requesters/AuthService'
 import axios, { AxiosError, HttpStatusCode } from 'axios'
 import registerSchema from '../../validators/registerValidator'
@@ -145,13 +144,10 @@ export default function Register() {
             <Link className='alternate-form-text' to='/'>
               login?
             </Link>
-            <button onClick={submitRegistration} data-cy='submit'>
-              <img
-                className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
-                src={arrow}
-                alt='next arrow'
-              />
-            </button>
+            <SubmissionArrow
+              onSubmit={submitRegistration}
+              isArrowShaking={isArrowShaking}
+            />
           </div>
         </div>
       </div>

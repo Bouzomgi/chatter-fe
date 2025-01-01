@@ -44,6 +44,7 @@ export default function AvatarSelectionModal({
       key={avatar.name}
       className='avatar'
       onClick={() => selectAvatar(avatar.name, avatar.url)}
+      data-cy={avatar.name}
     />
   ))
 
@@ -55,9 +56,13 @@ export default function AvatarSelectionModal({
 
   return (
     <div className='modal-centerer'>
-      <div className='modal'>
+      <div className='modal' data-cy='avatar-selection-modal'>
         <div className='modal-top'>
-          <IoIosClose className='exit-button' onClick={clearModal} />
+          <IoIosClose
+            className='exit-button'
+            onClick={clearModal}
+            data-cy='exit-button'
+          />
         </div>
         <div className='modal-descriptor'>choose an avatar</div>
         {content}

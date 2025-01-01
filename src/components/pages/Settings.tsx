@@ -1,8 +1,7 @@
 import '../../styles/layout/Form.scss'
 import '../../styles/pages/Settings.scss'
 
-import Header from '../layout/Header'
-import arrow from '../../assets/arrow.svg'
+import SubmissionArrow from '../form/SubmissionArrow'
 import EmptyFormRow from '../form/EmptyFormInputRow'
 import { useState } from 'react'
 import AvatarSelectionModal from '../modal/AvatarSelectionModal'
@@ -47,7 +46,7 @@ export default function Settings() {
   }
 
   return (
-    <div className='content'>
+    <div className='content' data-cy='content'>
       {showAvatarSelectionModal && (
         <AvatarSelectionModal
           clearModal={() => setShowAvatarSelectionModal(false)}
@@ -68,18 +67,16 @@ export default function Settings() {
               src={currentSelectedAvatar.url}
               alt='current avatar'
               onClick={() => setShowAvatarSelectionModal(true)}
+              data-cy='avatar-selector'
             />
           </div>
           <EmptyFormRow />
           <EmptyFormRow />
           <div className='submission-row'>
-            <button onClick={submitSettings}>
-              <img
-                className={'selection-arrow' + (isArrowShaking ? ' shake' : '')}
-                src={arrow}
-                alt='next arrow'
-              />
-            </button>
+            <SubmissionArrow
+              onSubmit={submitSettings}
+              isArrowShaking={isArrowShaking}
+            />
           </div>
         </div>
       </div>
