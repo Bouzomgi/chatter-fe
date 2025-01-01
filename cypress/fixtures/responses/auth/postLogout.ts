@@ -7,8 +7,8 @@ type LogoutResponse = ExtractResponseBody<
   HttpStatusCode.Ok
 >
 
-const logoutResponse: LogoutResponse = {
+const mockLogoutResponse: LogoutResponse = {
   message: 'User was logged out'
 }
 
-export { logoutResponse }
+export default mockLogoutResponse

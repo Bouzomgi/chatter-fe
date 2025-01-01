@@ -9,12 +9,12 @@ type MessageResponse = ExtractResponseBody<
   HttpStatusCode.Created
 >
 
-const messageRequest = {
+const messageRequest: MessageRequest = {
   members: [1, 2],
   content: 'Send from Cypress!'
 }
 
-const messageResponse = {
+const mockMessageResponse: MessageResponse = {
   conversationId: 1,
   threadId: 1,
   members: [1, 2],
@@ -26,4 +26,4 @@ const messageResponse = {
   }
 }
 
-export { messageRequest, messageResponse }
+export default mockMessageResponse

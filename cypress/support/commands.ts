@@ -1,12 +1,7 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
-import { HttpStatusCode } from 'axios'
-import { loginRequest } from 'cypress/fixtures/responses/auth/postLogin'
-
-type LoginResponse = ExtractResponseBody<
-  '/api/login',
-  'post',
-  HttpStatusCode.Ok
->
+import mockLoginResponse from 'cypress/fixtures/responses/auth/postLogin'
+import mockChatUsersDetailsResponse from 'cypress/fixtures/responses/chat/getChatUsersDetails'
+import mockChatsResponse from 'cypress/fixtures/responses/chat/getChats'
+import mockReadThreadResponse from 'cypress/fixtures/responses/chat/patchReadThread'
 
 Cypress.Commands.add('areUserDetailsSetInLocalStorage', () =>
   cy
@@ -27,28 +22,30 @@ Cypress.Commands.add('loadImageFixture', (imageName: string) =>
     .then((base64Image) => `data:image/svg+xml;base64,${base64Image}`)
 )
 
-Cypress.Commands.add('login', (username) => {
+Cypress.Commands.add('login', () => {
   cy.visit('/')
 
-  cy.loadImageFixture('avatar1.svg').then((imageUrl) => {
-    const mockedResponse: LoginResponse = {
-      userId: 1,
-      username: 'testUser',
-      avatar: {
-        name: 'avatars/default/avatar1.svg',
-        url: imageUrl
-      }
-    }
+  cy.get('[data-cy="username-field"]').find('input').type('fakeUser')
+  cy.get('[data-cy="password-field"]').find('input').type('fakePassword')
 
-    cy.intercept('POST', '/api/login', {
-      statusCode: 200,
-      body: mockedResponse
-    })
+  cy.intercept('POST', '/api/login', {
+    statusCode: 200,
+    body: mockLoginResponse
   })
 
   cy.intercept('GET', '/api/authed/chatUsersDetails', {
     statusCode: 200,
-    body: {}
+    body: mockChatUsersDetailsResponse
+  })
+
+  cy.intercept('GET', '/api/authed/chats', {
+    statusCode: 200,
+    body: mockChatsResponse
+  })
+
+  cy.intercept('PATCH', '/api/authed/readThread/1', {
+    statusCode: 200,
+    body: mockReadThreadResponse
   })
 
   cy.get('[data-cy="submit"]').click()

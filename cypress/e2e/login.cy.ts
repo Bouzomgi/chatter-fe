@@ -7,14 +7,11 @@
     - Register button should take you to registration
 */
 
-import { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
-
-type LoginResponse = ExtractResponseBody<
-  '/api/login',
-  'post',
-  HttpStatusCode.Ok
->
+import mockLoginResponse from 'cypress/fixtures/responses/auth/postLogin'
+import mockChatsResponse from 'cypress/fixtures/responses/chat/getChats'
+import mockChatUsersDetailsResponse from 'cypress/fixtures/responses/chat/getChatUsersDetails'
+import mockReadThread from 'cypress/fixtures/responses/chat/patchReadThread'
 
 describe('Login Page', () => {
   it('should have a header', () => {
@@ -68,25 +65,24 @@ describe('Login Page', () => {
     cy.get('[data-cy="username-field"]').find('input').type('testUser')
     cy.get('[data-cy="password-field"]').find('input').type('testPassword')
 
-    cy.loadImageFixture('avatar1.svg').then((imageUrl) => {
-      const mockedResponse: LoginResponse = {
-        userId: 1,
-        username: 'testUser',
-        avatar: {
-          name: 'avatars/default/avatar1.svg',
-          url: imageUrl
-        }
-      }
-
-      cy.intercept('POST', '/api/login', {
-        statusCode: 200,
-        body: mockedResponse
-      })
+    cy.intercept('POST', '/api/login', {
+      statusCode: HttpStatusCode.Ok,
+      body: mockLoginResponse
     })
 
     cy.intercept('GET', '/api/authed/chatUsersDetails', {
-      statusCode: 200,
-      body: {}
+      statusCode: HttpStatusCode.Ok,
+      body: mockChatUsersDetailsResponse
+    })
+
+    cy.intercept('GET', '/api/authed/chats', {
+      statusCode: HttpStatusCode.Ok,
+      body: mockChatsResponse
+    })
+
+    cy.intercept('PATCH', '/api/authed/readThread/*', {
+      statusCode: HttpStatusCode.Ok,
+      body: mockReadThread
     })
 
     cy.get('[data-cy="submit"]').click()

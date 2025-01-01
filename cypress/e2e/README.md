@@ -3,7 +3,7 @@
 - settings
 - conversation
 - logout
-- notifications
+- notifier
 - protected routes logic
   - Will return an unauth code! Should kick user out if it sees this
   - Should also boot if the localStorage is cleared!

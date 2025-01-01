@@ -13,11 +13,11 @@ type SetSettingsResponse = ExtractResponseBody<
 >
 
 const setSettingsRequest: SetSettingsRequest = {
-  avatar: 'avatars/default/avatar9.svg'
+  avatar: './avatars/default/avatar9.svg'
 }
 
-const setSettingsResponse: SetSettingsResponse = {
+const mockSetSettingsResponse: SetSettingsResponse = {
   message: 'Successfully changed settings'
 }
 
-export { setSettingsRequest, setSettingsResponse }
+export default mockSetSettingsResponse

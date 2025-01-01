@@ -1,11 +1,4 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
-import { HttpStatusCode } from 'axios'
-
-type RegisterResponse = ExtractResponseBody<
-  '/api/register',
-  'post',
-  HttpStatusCode.Created
->
+import mockRegisterResponse from 'cypress/fixtures/responses/auth/postRegister'
 
 describe('Registration Page', () => {
   it('should have a header', () => {
@@ -79,13 +72,9 @@ describe('Registration Page', () => {
     cy.get('[data-cy="username-field"]').find('input').type('testUser')
     cy.get('[data-cy="password-field"]').find('input').type('testPassword')
 
-    const mockedResponse: RegisterResponse = {
-      message: 'Successfully registered'
-    }
-
     cy.intercept('POST', '/api/register', {
       statusCode: 201,
-      body: mockedResponse
+      body: mockRegisterResponse
     })
 
     cy.get('[data-cy="submit"]').click()

@@ -15,8 +15,8 @@ const registerRequest: RegisterRequest = {
   password: 'testPassword'
 }
 
-const registerResponse: RegisterResponse = {
+const mockRegisterResponse: RegisterResponse = {
   message: 'Successfully created user'
 }
 
-export { registerRequest, registerResponse }
+export default mockRegisterResponse

@@ -7,7 +7,7 @@ type ChatsResponse = ExtractResponseBody<
   HttpStatusCode.Ok
 >
 
-const chatsResponse: ChatsResponse = [
+const mockChatsResponse: ChatsResponse = [
   {
     conversationId: 1,
     threadId: 1,
@@ -101,4 +101,4 @@ const chatsResponse: ChatsResponse = [
   }
 ]
 
-export { chatsResponse }
+export default mockChatsResponse

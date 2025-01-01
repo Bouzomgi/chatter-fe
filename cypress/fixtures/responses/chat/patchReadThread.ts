@@ -7,8 +7,8 @@ type ReadThreadResponse = ExtractResponseBody<
   HttpStatusCode.Ok
 >
 
-const readThread: ReadThreadResponse = {
+const mockReadThreadResponse: ReadThreadResponse = {
   message: 'Thread marked as read'
 }
 
-export { readThread }
+export default mockReadThreadResponse
