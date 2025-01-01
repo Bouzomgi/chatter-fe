@@ -1,0 +1,3 @@
+/*
+  error page renders when an unfamiliar URL is requested
+*/

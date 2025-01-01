@@ -13,14 +13,6 @@ module.exports = {
     'react-app/jest',
     'prettier'
   ],
-  overrides: [
-    {
-      files: ['*.test.ts'],
-      rules: {
-        'no-magic-numbers': 0
-      }
-    }
-  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

@@ -19,7 +19,7 @@ const mockLoginResponse: LoginResponse = {
   username: 'adam',
   avatar: {
     name: './avatars/default/avatar1.svg',
-    url: './avatars/default/avatar1.svg'
+    url: 'http://myserver/avatars/default/avatar1.svg'
   }
 }
 

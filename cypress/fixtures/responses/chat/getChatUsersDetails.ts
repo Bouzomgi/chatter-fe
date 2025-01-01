@@ -13,7 +13,7 @@ const mockChatUsersDetailsResponse: ChatUsersDetailsResponse = [
     username: 'britta',
     avatar: {
       name: './avatars/default/avatar2.svg',
-      url: 'http://localhost:3000/avatars/default/avatar2.svg'
+      url: 'http://myserver/avatars/default/avatar2.svg'
     }
   },
   {
@@ -21,7 +21,7 @@ const mockChatUsersDetailsResponse: ChatUsersDetailsResponse = [
     username: 'carl',
     avatar: {
       name: './avatars/default/avatar4.svg',
-      url: 'http://localhost:3000/avatars/default/avatar4.svg'
+      url: 'http://myserver/avatars/default/avatar4.svg'
     }
   },
   {
@@ -29,7 +29,7 @@ const mockChatUsersDetailsResponse: ChatUsersDetailsResponse = [
     username: 'dana',
     avatar: {
       name: './avatars/default/avatar1.svg',
-      url: 'http://localhost:3000/avatars/default/avatar1.svg'
+      url: 'http://myserver/avatars/default/avatar1.svg'
     }
   }
 ]

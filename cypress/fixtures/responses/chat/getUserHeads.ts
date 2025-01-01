@@ -13,7 +13,7 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     username: 'brian',
     avatar: {
       name: './avatars/default/avatar4.svg',
-      url: './avatars/default/avatar4.svg'
+      url: 'http://myserver/avatars/default/avatar4.svg'
     }
   },
   {
@@ -21,7 +21,7 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     username: 'britta',
     avatar: {
       name: './avatars/default/avatar2.svg',
-      url: './avatars/default/avatar2.svg'
+      url: 'http://myserver/avatars/default/avatar2.svg'
     }
   },
   {
@@ -29,7 +29,7 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     username: 'carl',
     avatar: {
       name: './avatars/default/avatar4.svg',
-      url: './avatars/default/avatar4.svg'
+      url: 'http://myserver/avatars/default/avatar4.svg'
     }
   },
   {
@@ -37,7 +37,7 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     username: 'dana',
     avatar: {
       name: './avatars/default/avatar1.svg',
-      url: './avatars/default/avatar1.svg'
+      url: 'http://myserver/avatars/default/avatar1.svg'
     }
   },
   {
@@ -45,7 +45,7 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     username: 'edward',
     avatar: {
       name: './avatars/default/avatar5.svg',
-      url: './avatars/default/avatar5.svg'
+      url: 'http://myserver/avatars/default/avatar5.svg'
     }
   },
   {
@@ -53,7 +53,7 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     username: 'zaid',
     avatar: {
       name: './avatars/default/avatar4.svg',
-      url: './avatars/default/avatar4.svg'
+      url: 'http://myserver/avatars/default/avatar4.svg'
     }
   }
 ]
