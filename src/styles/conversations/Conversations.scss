@@ -27,7 +27,7 @@ div.conversations-view {
       border-bottom: white solid 2px;
     }
 
-    div.message-head-container {
+    div.chat-head-container {
       flex: auto;
       overflow-y: auto;
       height: 300px;
@@ -113,13 +113,13 @@ div.conversations-view {
       height: 300px;
     }
 
-    div.message-bar-container {
+    div.message-input-container {
       display: flex;
       height: 63px;
       width: 100%;
     }
 
-    input.message-bar {
+    input.message-input {
       width: 90%;
       height: 30px;
       margin: auto;

@@ -20,7 +20,7 @@ export default function ConversationNav({
       <div className='search-container form-element'>
         {/* <input type='text' placeholder='search' /> */}
       </div>
-      <div className='message-head-container'>
+      <div className='chat-head-container'>
         {showUserHeads ? allUserHeads : allChatHeads}
       </div>
       <div className='new-conversation-container'>

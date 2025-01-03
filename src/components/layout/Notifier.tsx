@@ -1,15 +1,12 @@
-import useWebSocket from 'react-use-websocket'
+// src/components/Notifier.tsx
+
 import { useEffect } from 'react'
-import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
+import { useWebSocketConnection } from './socket/useWebSocketConnection'
 
 function Notifier() {
-  const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
-    `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed` || '',
-    {
-      share: true,
-      shouldReconnect: () => true
-    }
-  )
+  const { lastJsonMessage } = useWebSocketConnection({
+    url: `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`
+  })
 
   // Check if the tab is active or inactive
   const isTabInactive = () => document.hidden

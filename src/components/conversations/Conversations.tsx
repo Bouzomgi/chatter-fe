@@ -209,7 +209,7 @@ export default function Main() {
             />
           ) : null}
         </div>
-        <div className='message-bar-container'>
+        <div className='message-input-container'>
           <MessageInputBar
             userIdToUserDetails={state.userIdToUserDetails}
             activeMemberHash={state.activeMemberHash}

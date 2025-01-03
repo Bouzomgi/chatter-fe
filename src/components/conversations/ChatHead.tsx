@@ -37,7 +37,7 @@ export default function ChatHead({
 }: ChatHeadProps) {
   return (
     <div
-      className={`head message-head ${isActive ? 'active' : ''}`}
+      className={`head chat-head ${isActive ? 'active' : ''}`}
       onClick={onClick}
     >
       <img

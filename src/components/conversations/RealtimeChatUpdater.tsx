@@ -1,6 +1,5 @@
-import env from '../../config'
 import useWebSocket from 'react-use-websocket'
-import { useEffect, Dispatch } from 'react'
+import { useEffect, Dispatch, useRef } from 'react'
 import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
 import { MemberHashToChat } from '../../models/MemberHashToChat'
 import ChatService from '../../services/requesters/ChatService'
@@ -8,6 +7,7 @@ import { generateUserIdToUserDetails } from '../../models/UserIdToUserDetails'
 import { generateMemberHash } from '../../models/MemberHash'
 import { Actions as ConversationActions } from '../reducers/conversation/Actions'
 import { updateField } from '../reducers/conversation/ActionCreators'
+import { useWebSocketConnection } from '../layout/socket/useWebSocketConnection'
 
 type RealtimeChatUpdaterProps = {
   readonly memberHashToChat: MemberHashToChat
@@ -18,13 +18,9 @@ export default function RealtimeChatUpdater({
   memberHashToChat,
   conversationDispatch
 }: RealtimeChatUpdaterProps) {
-  const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(
-    `${env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`,
-    {
-      share: true,
-      shouldReconnect: () => true
-    }
-  )
+  const { lastJsonMessage } = useWebSocketConnection({
+    url: `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`
+  })
 
   useEffect(() => {
     if (lastJsonMessage) {

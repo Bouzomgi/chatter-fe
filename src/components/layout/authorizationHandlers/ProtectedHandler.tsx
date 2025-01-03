@@ -20,7 +20,10 @@ const AuthorizedHandler = () => {
   useEffect(() => {
     document.addEventListener('visibilitychange', handleUnauthorized)
     document.addEventListener('focus', handleUnauthorized)
-    eventEmitter.on('unauthorized', () => navigate('/'))
+    eventEmitter.on('unauthorized', (error) => {
+      LocalStorageService.removeUserDetails()
+      navigate('/', { state: error })
+    })
 
     // Cleanup event listener on component unmount
     return () => {

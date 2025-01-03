@@ -10,7 +10,8 @@ axiosAuthInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === HttpStatusCode.Unauthorized) {
       LocalStorageService.removeUserDetails()
-      eventEmitter.emit('unauthorized')
+      const errorMessage = { error: 'User made an unauthorized request' }
+      eventEmitter.emit('unauthorized', errorMessage)
     }
     return Promise.reject(error)
   }

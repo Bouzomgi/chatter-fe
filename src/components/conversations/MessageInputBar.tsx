@@ -108,7 +108,8 @@ export default function MessageInputBar({
 
   return (
     <input
-      className='message-bar'
+      data-cy='message-input'
+      className='message-input'
       value={messageValue}
       onChange={handleMessageValueChange}
       onKeyDown={handleMessageKeyDown}

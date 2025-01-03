@@ -1,7 +1,7 @@
 import '../../styles/layout/Form.scss'
 
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import AuthService from '../../services/requesters/AuthService'
 import axios, { AxiosError, HttpStatusCode } from 'axios'
 import { ValidationError } from 'yup'
@@ -24,6 +24,15 @@ export default function Login() {
   })
 
   const [error, setError] = useState('')
+
+  const location = useLocation()
+
+  useEffect(() => {
+    const passedData = location.state
+    if (passedData && passedData.error) {
+      setError(passedData.error)
+    }
+  }, [])
 
   const navigate = useNavigate()
 

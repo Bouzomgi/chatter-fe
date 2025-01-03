@@ -1,4 +1,0 @@
-/*
-  should remove localStorage
-  should boot the user to the homepage
-*/

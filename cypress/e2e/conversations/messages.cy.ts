@@ -9,3 +9,13 @@
   (realtime chat updater)
       foreign sent messages should show
 */
+
+describe('Messages', () => {
+  it('should display messages')
+
+  it('should send a message to another user')
+
+  it('should not sent an empty message')
+
+  it('should show new messages sent by other users in real time')
+})

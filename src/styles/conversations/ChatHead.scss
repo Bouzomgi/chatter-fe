@@ -10,7 +10,7 @@ div.head {
   background-color: index.$tertiary-color-dark;
 }
 
-div.message-head {
+div.chat-head {
   img.avatar {
     margin-right: 8px;
   }
@@ -48,7 +48,7 @@ div.message-head {
   }
 }
 
-div.message-head.active {
+div.chat-head.active {
   border-right: 4px solid index.$primary-color;
   padding-right: 4px;
 }
@@ -57,7 +57,7 @@ div.head + div.head {
   border-top: white solid 2px;
 }
 
-div.message-head:hover {
+div.chat-head:hover {
   cursor: pointer;
 }
 
