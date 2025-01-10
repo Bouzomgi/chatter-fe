@@ -12,9 +12,13 @@
     foreign sent messages should show on the chathead 
 */
 
+import {
+  localMessageNotificationResponse,
+  foreignMessageNotificationResponse
+} from 'cypress/fixtures/responses/websocket/messageNotificationPayload'
+import { modifiedGetUsersDetailsResponse } from 'cypress/fixtures/responses/chat/getChatUsersDetails'
+import { mockMessageResponse } from 'cypress/fixtures/responses/chat/postMessage'
 import { HttpStatusCode } from 'axios'
-import { Server } from 'mock-socket'
-import env from '@src/config'
 
 describe('Chatheads', () => {
   it('should display all necessary information', () => {
@@ -54,15 +58,45 @@ describe('Chatheads', () => {
 
     cy.get('.chat-head').eq(2).find('img').should('have.class', 'unseen')
 
-    cy.intercept('PATCH', '/api/authed/readThread/*', {
-      statusCode: HttpStatusCode.Ok
-    })
-
     cy.get('.chat-head')
       .eq(2)
       .click()
       .find('img')
       .should('not.have.class', 'unseen')
+
+    // even when clicking off of the chathead, should continue to be seen
+    cy.get('.chat-head').eq(1).click()
+
+    cy.get('.chat-head').eq(2).find('img').should('not.have.class', 'unseen')
+  })
+
+  it('should display new chathead from new foreign message in an existing chat', () => {
+    cy.login().triggerSocketEvent(localMessageNotificationResponse)
+
+    cy.get('.chat-head')
+      .first()
+      .should('exist')
+      .and('contain.text', 'this is a foreign message')
+      .find('img')
+      .should('not.have.class', 'unseen')
+  })
+
+  it('should display new chathead from new foreign message in a new chat', () => {
+    cy.login()
+      .intercept('GET', '/api/authed/chatUsersDetails', {
+        statusCode: HttpStatusCode.Ok,
+        body: modifiedGetUsersDetailsResponse
+      })
+      .triggerSocketEvent(foreignMessageNotificationResponse)
+
+    cy.get('.chat-head')
+      .should('be.visible')
+      .and('have.length', 4)
+      .first()
+      .should('contain.text', 'edward')
+      .and('contain.text', 'this is a new chat foreign message')
+      .find('img')
+      .should('have.class', 'unseen')
   })
 
   it('should display new chathead when sending a message', () => {
@@ -70,18 +104,7 @@ describe('Chatheads', () => {
 
     cy.intercept('POST', '/api/authed/message', {
       statusCode: HttpStatusCode.Ok,
-      body: {
-        conversationId: 1,
-        threadId: 1,
-        members: [1, 2],
-        message: {
-          messageId: 13,
-          fromUserId: 1,
-          createdAt:
-            'Tue Dec 31 2024 01:35:50 GMT+0000 (Coordinated Universal Time)',
-          content: 'test'
-        }
-      }
+      body: mockMessageResponse
     })
 
     cy.get('.chat-head')
@@ -93,28 +116,4 @@ describe('Chatheads', () => {
         cy.get('.chat-head').first().should('not.contain.text', initialChathead)
       })
   })
-
-  it.only('should display new chathead from new foreign message in an existing chat', () => {
-    const mockWss = new Server('ws://localhost:4001/api/authed')
-
-    mockWss.on('connection', (socket) => {
-      cy.log('EGGYYYYY')
-
-      socket.send('ELLO GOVNA')
-      cy.log('We are INNNNN')
-    })
-
-    cy.wait(1000)
-
-    cy.login()
-    cy.log('Logged in')
-
-    cy.get('SJSJJH')
-  })
-
-  it('should display new chathead from new foreign message in a new chat')
-
-  it(
-    'should not show a chathead as unseen if a new message is sent to the active thread'
-  )
 })

@@ -1,18 +1,11 @@
-import { ExtractPathRequestBody } from '@openapi/typeExtractors'
 import { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
-type MessageRequest = ExtractPathRequestBody<'/api/authed/message', 'post'>
 type MessageResponse = ExtractResponseBody<
   '/api/authed/message',
   'post',
   HttpStatusCode.Created
 >
-
-const messageRequest: MessageRequest = {
-  members: [1, 2],
-  content: 'Send from Cypress!'
-}
 
 const mockMessageResponse: MessageResponse = {
   conversationId: 1,
@@ -22,8 +15,20 @@ const mockMessageResponse: MessageResponse = {
     messageId: 12,
     fromUserId: 1,
     createdAt: 'Tue Dec 31 2024 01:34:50 GMT+0000 (Coordinated Universal Time)',
-    content: 'Send from Cypress!'
+    content: 'Sent from Cypress!'
   }
 }
 
-export default mockMessageResponse
+const mockNewChatMessageResponse: MessageResponse = {
+  conversationId: 5,
+  threadId: 10,
+  members: [1, 5],
+  message: {
+    messageId: 13,
+    fromUserId: 5,
+    createdAt: 'Tue Dec 31 2024 01:34:50 GMT+0000 (Coordinated Universal Time)',
+    content: 'A new chat'
+  }
+}
+
+export { mockMessageResponse, mockNewChatMessageResponse }

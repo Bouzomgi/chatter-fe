@@ -12,48 +12,40 @@ const mockUserHeadsResponse: UserHeadsResponse = [
     userId: 6,
     username: 'brian',
     avatar: {
-      name: './avatars/default/avatar4.svg',
-      url: 'http://myserver/avatars/default/avatar4.svg'
+      name: './avatar4.svg',
+      url: './avatar4.svg'
     }
   },
   {
     userId: 2,
     username: 'britta',
     avatar: {
-      name: './avatars/default/avatar2.svg',
-      url: 'http://myserver/avatars/default/avatar2.svg'
+      name: './avatar2.svg',
+      url: './avatar2.svg'
     }
   },
   {
     userId: 3,
     username: 'carl',
     avatar: {
-      name: './avatars/default/avatar4.svg',
-      url: 'http://myserver/avatars/default/avatar4.svg'
+      name: './avatar4.svg',
+      url: './avatar4.svg'
     }
   },
   {
     userId: 4,
     username: 'dana',
     avatar: {
-      name: './avatars/default/avatar1.svg',
-      url: 'http://myserver/avatars/default/avatar1.svg'
+      name: './avatar1.svg',
+      url: './avatar1.svg'
     }
   },
   {
     userId: 5,
     username: 'edward',
     avatar: {
-      name: './avatars/default/avatar5.svg',
-      url: 'http://myserver/avatars/default/avatar5.svg'
-    }
-  },
-  {
-    userId: 7,
-    username: 'zaid',
-    avatar: {
-      name: './avatars/default/avatar4.svg',
-      url: 'http://myserver/avatars/default/avatar4.svg'
+      name: './avatar5.svg',
+      url: './avatar5.svg'
     }
   }
 ]

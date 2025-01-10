@@ -2,25 +2,30 @@
 
 import { useEffect } from 'react'
 import { useWebSocketConnection } from './socket/useWebSocketConnection'
+import { useLocation } from 'react-router-dom'
 
 function Notifier() {
   const { lastJsonMessage } = useWebSocketConnection({
     url: `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`
   })
 
+  const location = useLocation() // Access the current route
+
   // Check if the tab is active or inactive
   const isTabInactive = () => document.hidden
 
   // Handle WebSocket messages
   useEffect(() => {
-    if (lastJsonMessage && isTabInactive()) {
-      document.title = 'chatter!!!' // Change the title if the tab is inactive and a message arrives
+    if (lastJsonMessage) {
+      if (isTabInactive() || location.pathname !== '/chatroom') {
+        document.title = 'chatter!!!' // Change the title if the tab is inactive or on settings and a message arrives
+      }
     }
 
     return () => {
       document.title = 'chatter'
     }
-  }, [lastJsonMessage])
+  }, [lastJsonMessage, location.pathname])
 
   return null
 }

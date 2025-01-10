@@ -37,5 +37,9 @@ describe('Chatroom Page', () => {
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
     cy.areUserDetailsSetInLocalStorage().should('be.false')
+
+    cy.visit('/chatroom')
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.areUserDetailsSetInLocalStorage().should('be.false')
   })
 })

@@ -1,6 +1,4 @@
-import useWebSocket from 'react-use-websocket'
-import { useEffect, Dispatch, useRef } from 'react'
-import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
+import { useEffect, Dispatch } from 'react'
 import { MemberHashToChat } from '../../models/MemberHashToChat'
 import ChatService from '../../services/requesters/ChatService'
 import { generateUserIdToUserDetails } from '../../models/UserIdToUserDetails'

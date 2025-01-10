@@ -1,7 +1,9 @@
 import mockLoginResponse from 'cypress/fixtures/responses/auth/postLogin'
-import mockChatUsersDetailsResponse from 'cypress/fixtures/responses/chat/getChatUsersDetails'
+import { mockChatUsersDetailsResponse } from 'cypress/fixtures/responses/chat/getChatUsersDetails'
 import mockChatsResponse from 'cypress/fixtures/responses/chat/getChats'
 import mockReadThreadResponse from 'cypress/fixtures/responses/chat/patchReadThread'
+import 'cypress-mock-websocket-plugin'
+import { HttpStatusCode } from 'axios'
 
 Cypress.Commands.add('areUserDetailsSetInLocalStorage', () =>
   cy
@@ -16,35 +18,49 @@ Cypress.Commands.add('areUserDetailsSetInLocalStorage', () =>
     )
 )
 
-Cypress.Commands.add('loadImageFixture', (imageName: string) =>
-  cy
-    .fixture(`/images/${imageName}`, 'base64')
-    .then((base64Image) => `data:image/svg+xml;base64,${base64Image}`)
-)
+Cypress.Commands.add('login', (options?: Cypress.loginOptions) => {
+  const haveNoUnseenMessages = options?.haveNoUnseenMessages
 
-Cypress.Commands.add('login', () => {
+  cy.mockWebSocket('ws://localhost:4000/api/authed', {
+    useDefaultWebSocket: true
+  })
+
+  cy.intercept('POST', '/avatars/default/avatar*', {
+    statusCode: HttpStatusCode.Ok
+  })
+
   cy.visit('/')
 
   cy.get('[data-cy="username-field"]').find('input').type('fakeUser')
   cy.get('[data-cy="password-field"]').find('input').type('fakePassword')
 
   cy.intercept('POST', '/api/login', {
-    statusCode: 200,
+    statusCode: HttpStatusCode.Ok,
     body: mockLoginResponse
   })
 
   cy.intercept('GET', '/api/authed/chatUsersDetails', {
-    statusCode: 200,
+    statusCode: HttpStatusCode.Ok,
     body: mockChatUsersDetailsResponse
   })
 
-  cy.intercept('GET', '/api/authed/chats', {
-    statusCode: 200,
-    body: mockChatsResponse
-  })
+  if (haveNoUnseenMessages) {
+    cy.intercept('GET', '/api/authed/chats', {
+      statusCode: HttpStatusCode.Ok,
+      body: mockChatsResponse.map((chat) => ({
+        ...chat,
+        unseenMessageId: undefined
+      }))
+    })
+  } else {
+    cy.intercept('GET', '/api/authed/chats', {
+      statusCode: HttpStatusCode.Ok,
+      body: mockChatsResponse
+    })
+  }
 
-  cy.intercept('PATCH', '/api/authed/readThread/1', {
-    statusCode: 200,
+  cy.intercept('PATCH', '/api/authed/readThread/*', {
+    statusCode: HttpStatusCode.Ok,
     body: mockReadThreadResponse
   })
 

@@ -25,6 +25,7 @@ export default function ConversationNav({
       </div>
       <div className='new-conversation-container'>
         <button
+          data-cy='new-chat'
           className={'new-chat ' + (showUserHeads ? 'active' : '')}
           onClick={() => dispatch(toggleUserHeads())}
         >

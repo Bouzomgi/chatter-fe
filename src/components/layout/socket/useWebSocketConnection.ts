@@ -1,5 +1,3 @@
-// src/hooks/useWebSocketConnection.ts
-
 import { useRef } from 'react'
 import useWebSocket from 'react-use-websocket'
 import eventEmitter from 'src/services/EventEmitter'

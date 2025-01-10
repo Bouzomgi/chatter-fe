@@ -19,7 +19,7 @@ module.exports = {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname
   },
-  ignorePatterns: ['.eslintrc.js', 'build', 'coverage', 'public'],
+  ignorePatterns: ['.eslintrc.js', 'build', 'coverage', 'public', '*.html'],
   rules: {
     /* PROBLEMS */
     'array-callback-return': 2,

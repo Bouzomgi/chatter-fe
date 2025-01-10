@@ -24,7 +24,11 @@ export function UserHead({
       <img className='avatar' src={avatar.url} alt={avatar.name} />
       <span className='username'>{username}</span>
       <span className='arrow-container'>
-        <SubmissionArrow onSubmit={onClick} isSelected={isSelected} />
+        <SubmissionArrow
+          onSubmit={onClick}
+          isSelected={isSelected}
+          data-cy='submit'
+        />
       </span>
     </div>
   )

@@ -10,7 +10,7 @@
 import { HttpStatusCode } from 'axios'
 import mockLoginResponse from 'cypress/fixtures/responses/auth/postLogin'
 import mockChatsResponse from 'cypress/fixtures/responses/chat/getChats'
-import mockChatUsersDetailsResponse from 'cypress/fixtures/responses/chat/getChatUsersDetails'
+import { mockChatUsersDetailsResponse } from 'cypress/fixtures/responses/chat/getChatUsersDetails'
 import mockReadThread from 'cypress/fixtures/responses/chat/patchReadThread'
 
 describe('Login Page', () => {
@@ -58,6 +58,10 @@ describe('Login Page', () => {
   })
 
   it('should successfully login with valid input', () => {
+    cy.mockWebSocket('ws://localhost:4000/api/authed', {
+      useDefaultWebSocket: true
+    })
+
     cy.visit('/')
 
     cy.areUserDetailsSetInLocalStorage().should('be.false')

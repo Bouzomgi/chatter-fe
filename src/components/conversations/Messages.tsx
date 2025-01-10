@@ -21,13 +21,13 @@ export function Messages({ messages }: MessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // messages is an array, so we use this approach to see when messages has changed
-  const jsonMessagesString = JSON.stringify(messages)
+  const messagesLength = messages.length
 
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight
     }
-  }, [jsonMessagesString]) // Re-run when messages change
+  }, [messagesLength]) // re-run when messages change
 
   const messageList = messages.map((message, index) => {
     const isFromUser = `${userId}` === `${message.fromUserId}`

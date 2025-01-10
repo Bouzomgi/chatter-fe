@@ -12,6 +12,7 @@
   Should be able to click X out of settings
 */
 
+import { HttpStatusCode } from 'axios'
 import mockDefaultAvatarsResponse from 'cypress/fixtures/responses/settings/getDefaultAvatars'
 import mockSetSettingsResponse from 'cypress/fixtures/responses/settings/postSetSettings'
 
@@ -39,7 +40,7 @@ describe('Settings Page', () => {
     cy.visit('/settings')
 
     cy.intercept('GET', '/api/authed/defaultAvatars', {
-      statusCode: 200,
+      statusCode: HttpStatusCode.Ok,
       body: mockDefaultAvatarsResponse
     })
 
@@ -73,7 +74,7 @@ describe('Settings Page', () => {
               expect(finalSrc).not.to.equal(initialSrc)
 
               cy.intercept('POST', '/api/authed/setSettings', {
-                statusCode: 200,
+                statusCode: HttpStatusCode.Ok,
                 body: mockSetSettingsResponse
               })
 
@@ -95,7 +96,7 @@ describe('Settings Page', () => {
     cy.visit('/settings')
 
     cy.intercept('GET', '/api/authed/defaultAvatars', {
-      statusCode: 200,
+      statusCode: HttpStatusCode.Ok,
       body: mockDefaultAvatarsResponse
     })
 
@@ -118,7 +119,7 @@ describe('Settings Page', () => {
               expect(finalSrc).to.equal(initialSrc)
 
               cy.intercept('POST', '/api/authed/setSettings', {
-                statusCode: 200,
+                statusCode: HttpStatusCode.Ok,
                 body: mockSetSettingsResponse
               })
 
@@ -137,7 +138,7 @@ describe('Settings Page', () => {
     cy.visit('/settings')
 
     cy.intercept('GET', '/api/authed/defaultAvatars', {
-      statusCode: 200,
+      statusCode: HttpStatusCode.Ok,
       body: mockDefaultAvatarsResponse
     })
 
@@ -158,7 +159,7 @@ describe('Settings Page', () => {
               expect(finalSrc).to.equal(initialSrc)
 
               cy.intercept('POST', '/api/authed/setSettings', {
-                statusCode: 200,
+                statusCode: HttpStatusCode.Ok,
                 body: mockSetSettingsResponse
               })
 

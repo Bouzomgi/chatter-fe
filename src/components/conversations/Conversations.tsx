@@ -21,6 +21,7 @@ import {
   wipeDraftThreadUserDetails,
   updateActiveMemberHash
 } from '../reducers/conversation/ActionCreators'
+import RealtimeChatUpdater from './RealtimeChatUpdater'
 
 export default function Main() {
   const [state, dispatch] = useReducer(
@@ -187,6 +188,10 @@ export default function Main() {
 
   return (
     <div className='content conversations-view'>
+      <RealtimeChatUpdater
+        memberHashToChat={state.memberHashToChat}
+        conversationDispatch={dispatch}
+      />
       <ConversationNav
         showUserHeads={state.showUserHeads}
         allUserHeads={allUserHeads}
