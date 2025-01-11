@@ -19,11 +19,17 @@ RUN npm run build
 # Stage 2: Serve the application using nginx
 FROM nginx:alpine
 
+# Set working directory
+WORKDIR /usr/share/nginx/html
+
 # Remove default nginx configuration
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built React app from Stage 1 to nginx
 COPY --from=builder /app/build /usr/share/nginx/html
+
+# Add custom Nginx configuration to handle client-side routing
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
