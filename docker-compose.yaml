@@ -1,8 +1,6 @@
 services:
   webserver:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: bouzomgi/chatter-fe
     ports:
       - '80:80'
     environment:
