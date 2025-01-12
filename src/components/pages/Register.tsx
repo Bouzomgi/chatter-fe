@@ -131,6 +131,7 @@ export default function Register() {
             value={registerForm.password}
             assignInput={assignInput}
             error={errors.password}
+            isPassword={true}
             dataCy='password-field'
           />
         </div>

@@ -3,6 +3,7 @@ type FormFieldProps = {
   readonly value: string
   readonly assignInput: (e: React.ChangeEvent<HTMLInputElement>) => void
   readonly error: string
+  readonly isPassword?: boolean
   readonly dataCy?: string
 }
 
@@ -11,12 +12,13 @@ function FormField({
   value,
   assignInput,
   error,
+  isPassword = false,
   dataCy
 }: FormFieldProps) {
   return (
     <div className='form-input-row' data-cy={dataCy}>
       <input
-        type='text'
+        type={isPassword ? 'password' : 'text'}
         id={fieldName}
         placeholder={fieldName}
         value={value}

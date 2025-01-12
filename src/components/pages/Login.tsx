@@ -144,6 +144,7 @@ export default function Login() {
             value={loginForm.password}
             assignInput={assignInput}
             error={errors.password}
+            isPassword={true}
             dataCy='password-field'
           />
           <EmptyFormRow />
