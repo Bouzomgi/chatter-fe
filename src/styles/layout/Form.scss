@@ -7,7 +7,9 @@ div.form-centerer {
   flex-direction: column;
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='password'] {
+  all: unset;
   height: 100%;
   width: 100%;
   background-color: index.$secondary-color;
@@ -68,6 +70,7 @@ div.form {
   }
 
   input[type='text'],
+  input[type='password'],
   .form-element {
     width: 100%;
     flex-grow: 1;
