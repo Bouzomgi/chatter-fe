@@ -3,10 +3,13 @@ services:
     image: bouzomgi/chatter-fe
     ports:
       - '80:80'
+      - '443:443'
     environment:
       - NODE_ENV=production
     stdin_open: true
     tty: true
+    volumes:
+      - ./private/cert:/etc/cert:ro
     networks:
       - chatter-network
 
