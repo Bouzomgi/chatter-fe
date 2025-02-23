@@ -31,6 +31,9 @@ jobs:
       - name: Install Certbot
         run: sudo apt-get install certbot
 
+      - name: Install Plugin
+        run: sudo snap install certbot-dns-route53
+
       - name: Generate SSL Certificate
         run: sudo certbot certonly --dns-route53 -d chitchatter.link
 
