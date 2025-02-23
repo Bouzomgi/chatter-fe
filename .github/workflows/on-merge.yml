@@ -34,33 +34,13 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/gha-deployment
           aws-region: us-east-1
 
-      # - name: Export AWS Credentials for Certbot
-      #   run: |
-      #     echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> $GITHUB_ENV
-      #     echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> $GITHUB_ENV
-      #     echo "AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}" >> $GITHUB_ENV
-
-      - name: Install Certbot
-        run: sudo snap install --classic certbot
-
-      - name: Trust Plugin with Root Access
-        run: sudo snap set certbot trust-plugin-with-root=ok
-
-      - name: Install Plugin
-        run: sudo snap install certbot-dns-route53
-
-      - name: Install boto3
-        run: pip install boto3
-
-      - name: Verify AWS Credentials
-        run: aws sts get-caller-identity
-
-      - name: Generate SSL Certificate
+      - name: Write SSL Keys to File
         run: |
-          sudo certbot certonly --dns-route53 -d chitchatter.link \
-          --non-interactive --agree-tos -m ${{ secrets.EMAIL }} -v
+          mkdir -p "${{ GITHUB_WORKSPACE }}/private/cert"
+          echo -n "${{ secrets.SSL_CERT }}" | base64 --decode > "${{ GITHUB_WORKSPACE }}/private/cert/cert.pem"
+          echo -n "${{ secrets.SSL_PRIVATE_KEY }}" | base64 --decode > "${{ GITHUB_WORKSPACE }}/private/cert/key.pem"
+          chmod 600 "${{ GITHUB_WORKSPACE }}/private/cert/cert.pem" "${{ GITHUB_WORKSPACE }}/private/cert/key.pem"
 
-      ######
       - name: Install Dependencies
         run: npm ci
 
