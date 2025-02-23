@@ -40,7 +40,7 @@ jobs:
       - name: Generate SSL Certificate
         run: |
           sudo certbot certonly --dns-route53 -d chitchatter.link \
-          --non-interactive --agree-tos -m your-email@example.com
+          --non-interactive --agree-tos -m ${{ secrets.EMAIL }}
 
       - name: Install Dependencies
         run: npm ci
