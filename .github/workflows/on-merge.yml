@@ -28,6 +28,12 @@ jobs:
           node-version: 20.12.x
           cache: npm
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/gha-deployment
+          aws-region: us-east-1
+
       - name: Install Certbot
         run: sudo snap install --classic certbot
 
@@ -42,6 +48,7 @@ jobs:
           sudo certbot certonly --dns-route53 -d chitchatter.link \
           --non-interactive --agree-tos -m ${{ secrets.EMAIL }}
 
+      ######
       - name: Install Dependencies
         run: npm ci
 
