@@ -36,8 +36,8 @@ jobs:
       - name: Write SSL Keys to File
         run: |
           mkdir -p "$GITHUB_WORKSPACE/private/cert"
-          echo -n "${{ secrets.SSL_CERT }}" | base64 --decode > "$GITHUB_WORKSPACE/private/cert/cert.pem"
-          echo -n "${{ secrets.SSL_PRIVATE_KEY }}" | base64 --decode > "$GITHUB_WORKSPACE/private/cert/key.pem"
+          echo -n "${{ secrets.SSL_CERT }}" > "$GITHUB_WORKSPACE/private/cert/cert.pem"
+          echo -n "${{ secrets.SSL_PRIVATE_KEY }}" > "$GITHUB_WORKSPACE/private/cert/key.pem"
           chmod 600 "$GITHUB_WORKSPACE/private/cert/cert.pem" "$GITHUB_WORKSPACE/private/cert/key.pem"
 
       - name: Install Dependencies
