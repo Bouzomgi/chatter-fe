@@ -49,6 +49,9 @@ jobs:
           echo "aws_session_token=${AWS_SESSION_TOKEN}" >> ~/.aws/credentials
           echo "region=us-east-1" > ~/.aws/config
 
+      - name: Check AWS Credentials
+        run: cat ~/.aws/credentials
+
       - name: Install Certbot
         run: sudo snap install --classic certbot
 
