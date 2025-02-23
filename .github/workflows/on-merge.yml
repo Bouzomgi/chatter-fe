@@ -38,7 +38,9 @@ jobs:
         run: sudo snap install certbot-dns-route53
 
       - name: Generate SSL Certificate
-        run: sudo certbot certonly --dns-route53 -d chitchatter.link
+        run: |
+          sudo certbot certonly --dns-route53 -d chitchatter.link \
+          --non-interactive --agree-tos -m your-email@example.com
 
       - name: Install Dependencies
         run: npm ci
