@@ -29,7 +29,7 @@ jobs:
           cache: npm
 
       - name: Install Certbot
-        run: sudo snap install certbot
+        run: sudo snap install --classic certbot
 
       - name: Install Plugin
         run: sudo snap install certbot-dns-route53
