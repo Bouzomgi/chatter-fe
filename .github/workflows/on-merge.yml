@@ -32,7 +32,7 @@ jobs:
         run: sudo apt-get install certbot
 
       - name: Generate SSL Certificate
-        run: certbot certonly --dns-route53 -d chitchatter.link
+        run: sudo certbot certonly --dns-route53 -d chitchatter.link
 
       - name: Install Dependencies
         run: npm ci
