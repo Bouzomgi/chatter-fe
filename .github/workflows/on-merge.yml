@@ -31,6 +31,9 @@ jobs:
       - name: Install Certbot
         run: sudo snap install --classic certbot
 
+      - name: Trust Plugin with Root Access
+        run: sudo snap set certbot trust-plugin-with-root=ok
+
       - name: Install Plugin
         run: sudo snap install certbot-dns-route53
 
