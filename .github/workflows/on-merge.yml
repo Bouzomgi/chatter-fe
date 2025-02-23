@@ -49,6 +49,12 @@ jobs:
       - name: Install Plugin
         run: sudo snap install certbot-dns-route53
 
+      - name: Install boto3
+        run: pip install boto3
+
+      - name: Verify AWS Credentials
+        run: aws sts get-caller-identity
+
       - name: Generate SSL Certificate
         run: |
           sudo certbot certonly --dns-route53 -d chitchatter.link \
