@@ -34,8 +34,11 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/gha-deployment
           aws-region: us-east-1
 
-      - name: Verify AWS Credentials
-        run: aws sts get-caller-identity
+      - name: Export AWS Credentials for Certbot
+        run: |
+          export AWS_ACCESS_KEY_ID=$(aws sts get-session-token --query 'Credentials.AccessKeyId' --output text)
+          export AWS_SECRET_ACCESS_KEY=$(aws sts get-session-token --query 'Credentials.SecretAccessKey' --output text)
+          export AWS_SESSION_TOKEN=$(aws sts get-session-token --query 'Credentials.SessionToken' --output text)
 
       - name: Install Certbot
         run: sudo snap install --classic certbot
