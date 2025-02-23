@@ -58,7 +58,7 @@ jobs:
       - name: Generate SSL Certificate
         run: |
           sudo certbot certonly --dns-route53 -d chitchatter.link \
-          --non-interactive --agree-tos -m ${{ secrets.EMAIL }}
+          --non-interactive --agree-tos -m ${{ secrets.EMAIL }} -v
 
       ######
       - name: Install Dependencies
