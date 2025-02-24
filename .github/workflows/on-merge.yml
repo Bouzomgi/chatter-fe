@@ -28,18 +28,6 @@ jobs:
           node-version: 20.12.x
           cache: npm
 
-      - name: Debug SSL Cert Secret
-        run: |
-          echo "SSL_CERT is set to: ${{ secrets.SSL_CERT }}"  # This will NOT print the secret value but indicate it's present
-          echo "SSL_PRIVATE_KEY is set to: ${{ secrets.SSL_PRIVATE_KEY }}"
-
-      - name: Write SSL Keys to File
-        run: |
-          mkdir -p "$GITHUB_WORKSPACE/private/cert"
-          echo -n "${{ secrets.SSL_CERT }}" > "$GITHUB_WORKSPACE/private/cert/cert.pem"
-          echo -n "${{ secrets.SSL_PRIVATE_KEY }}" > "$GITHUB_WORKSPACE/private/cert/key.pem"
-          chmod 600 "$GITHUB_WORKSPACE/private/cert/cert.pem" "$GITHUB_WORKSPACE/private/cert/key.pem"
-
       - name: Install Dependencies
         run: npm ci
 
