@@ -37,7 +37,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker buildx create --use
-          docker buildx build 
+          docker buildx build \
             --platform linux/arm64/v8 \
             -t bouzomgi/chatter-fe:latest \
             --build-arg REACT_APP_BACKEND_ENDPOINT=${{ vars.REACT_APP_BACKEND_ENDPOINT }} \
