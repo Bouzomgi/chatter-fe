@@ -33,7 +33,7 @@ export default class AuthService {
       LoginResponse,
       AxiosResponse<LoginResponse>,
       LoginRequest
-    >(`${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/login`, form, axiosConfig)
+    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/login`, form, axiosConfig)
   }
 
   static register(form: RegisterRequest) {
@@ -41,12 +41,12 @@ export default class AuthService {
       RegisterResponse,
       AxiosResponse<RegisterResponse>,
       RegisterRequest
-    >(`${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/register`, form)
+    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/register`, form)
   }
 
   static logout() {
     return axios.post<LogoutResponse, AxiosResponse<LogoutResponse>>(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/logout`,
+      `${env.REACT_APP_BACKEND_ENDPOINT}/api/logout`,
       {},
       axiosConfig
     )

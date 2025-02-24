@@ -45,14 +45,14 @@ export default class ChatService {
       ChatUsersDetailsResponse,
       AxiosResponse<ChatUsersDetailsResponse>
     >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/chatUsersDetails`,
+      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/chatUsersDetails`,
       axiosConfig
     )
   }
 
   static getChats() {
     return axiosAuthInstance.get<ChatsResponse, AxiosResponse<ChatsResponse>>(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/chats`,
+      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/chats`,
       axiosConfig
     )
   }
@@ -61,10 +61,7 @@ export default class ChatService {
     return axiosAuthInstance.get<
       UserHeadsResponse,
       AxiosResponse<UserHeadsResponse>
-    >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/userHeads`,
-      axiosConfig
-    )
+    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/userHeads`, axiosConfig)
   }
 
   static patchReadThread(threadId: number) {
@@ -72,7 +69,7 @@ export default class ChatService {
       ReadThreadResponse,
       AxiosResponse<ReadThreadResponse>
     >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/readThread/${threadId}`,
+      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/readThread/${threadId}`,
       {},
       axiosConfig
     )
@@ -83,10 +80,6 @@ export default class ChatService {
       MessageResponse,
       AxiosResponse<MessageResponse>,
       MessageRequest
-    >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/message`,
-      form,
-      axiosConfig
-    )
+    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/message`, form, axiosConfig)
   }
 }

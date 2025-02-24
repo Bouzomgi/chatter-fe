@@ -42,5 +42,5 @@ jobs:
           working-directory: e2e
           spec: cypress/e2e/local/**/*.cy.ts
         env:
-          REACT_APP_BACKEND_HTTP_ENDPOINT: ${{ vars.REACT_APP_BACKEND_HTTP_ENDPOINT }}
+          REACT_APP_BACKEND_ENDPOINT: ${{ vars.REACT_APP_BACKEND_ENDPOINT }}
           REACT_APP_BACKEND_WEBSOCKET_ENDPOINT: ${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }}

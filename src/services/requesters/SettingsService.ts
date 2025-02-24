@@ -34,7 +34,7 @@ export default class SettingsService {
       DefaultAvatarResponse,
       AxiosResponse<DefaultAvatarResponse>
     >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/defaultAvatars`,
+      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/defaultAvatars`,
       axiosConfig
     )
   }
@@ -45,7 +45,7 @@ export default class SettingsService {
       AxiosResponse<SetSettingsResponse>,
       SetSettingsRequest
     >(
-      `${env.REACT_APP_BACKEND_HTTP_ENDPOINT}/api/authed/setSettings`,
+      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/setSettings`,
       settingsForm,
       axiosConfig
     )
