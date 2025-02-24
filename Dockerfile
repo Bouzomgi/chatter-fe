@@ -1,6 +1,9 @@
 # Stage 1: Build the React application
 FROM node:20 AS builder
 
+ENV REACT_APP_BACKEND_ENDPOINT="http://localhost:4000"
+ENV REACT_APP_BACKEND_WEBSOCKET_ENDPOINT="ws://localhost:4000"
+
 # Set the working directory
 WORKDIR /app
 

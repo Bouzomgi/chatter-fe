@@ -28,15 +28,6 @@ jobs:
           node-version: 20.12.x
           cache: npm
 
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Create Production Build
-        run: CI='' npm run build
-        env:
-          REACT_APP_BACKEND_ENDPOINT: ${{ vars.REACT_APP_BACKEND_ENDPOINT }}
-          REACT_APP_BACKEND_WEBSOCKET_ENDPOINT: ${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }}
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -46,4 +37,9 @@ jobs:
       - name: Build Docker image
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/arm64/v8 -t bouzomgi/chatter-fe:latest --push .
+          docker buildx build 
+            --platform linux/arm64/v8 \
+            -t bouzomgi/chatter-fe:latest \
+            --build-arg REACT_APP_BACKEND_ENDPOINT=${{ vars.REACT_APP_BACKEND_ENDPOINT }} \
+            --build-arg REACT_APP_BACKEND_WEBSOCKET_ENDPOINT=${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }} \
+            --push .
