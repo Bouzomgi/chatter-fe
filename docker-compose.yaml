@@ -15,4 +15,4 @@ services:
 
 networks:
   chatter-network:
-    driver: bridge
+    external: true
