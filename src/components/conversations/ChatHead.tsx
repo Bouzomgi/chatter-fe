@@ -1,8 +1,8 @@
 import '../../styles/conversations/ChatHead.scss'
 
-import Avatar from '../../models/Avatar'
-import { Chat as ChatType } from '../../models/Chat'
-import MessageType from '../../models/Message'
+import type { Avatar } from '../../models/Avatar'
+import type { Chat as ChatType } from '../../models/Chat'
+import type { Message as MessageType } from '../../models/Message'
 import dayjs from 'dayjs'
 
 const timestampToString = (timestamp: string): string => {

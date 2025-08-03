@@ -1,4 +1,4 @@
-import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
+import type { MessageNotificationPayload } from 'chatter-be/src/websocket/MessageNotificationPayload'
 
 const localMessageNotificationResponse: MessageNotificationPayload = {
   conversationId: 1,

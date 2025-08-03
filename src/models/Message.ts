@@ -1,5 +1,3 @@
-import { components } from 'chatter-be/openapi/schema'
+import type { components } from 'chatter-be/openapi/schema'
 
-type Message = components['schemas']['Message']
-
-export default Message
+export type Message = components['schemas']['Message']

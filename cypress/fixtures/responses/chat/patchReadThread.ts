@@ -1,8 +1,8 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
+import type { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
 type ReadThreadResponse = ExtractResponseBody<
-  '/api/authed/readThread/{threadId}',
+  '/authed/readThread/{threadId}',
   'patch',
   HttpStatusCode.Ok
 >

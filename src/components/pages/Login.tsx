@@ -69,7 +69,7 @@ export default function Login() {
   function handleAxiosError(axiosError: AxiosError) {
     if (axiosError.response) {
       if (axiosError.response.status === HttpStatusCode.NotFound) {
-        setError('Username does not exist')
+        setError('User not found')
       } else if (axiosError.response.status === HttpStatusCode.Unauthorized) {
         setError('Invalid password')
       } else if (

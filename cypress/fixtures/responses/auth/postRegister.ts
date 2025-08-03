@@ -1,8 +1,8 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
+import type { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
 type RegisterResponse = ExtractResponseBody<
-  '/api/register',
+  '/register',
   'post',
   HttpStatusCode.Created
 >

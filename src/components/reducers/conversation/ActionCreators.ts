@@ -1,9 +1,8 @@
-import { UserIdToUserDetails } from '../../../models/UserIdToUserDetails'
-import { MemberHashToChat } from '../../../models/MemberHashToChat'
-import { MemberHash } from '../../../models/MemberHash'
-import UserDetails from '../../../models/UserDetails'
+import type { UserIdToUserDetails } from '../../../models/UserIdToUserDetails'
+import type { MemberHashToChat } from '../../../models/MemberHashToChat'
+import type { MemberHash } from '../../../models/MemberHash'
 
-import {
+import type {
   InitializeAction,
   GenericUpdateFieldAction,
   UpdateActiveMemberHashAction,

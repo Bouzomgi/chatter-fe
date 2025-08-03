@@ -1,8 +1,8 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
+import type { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
 type ChatsResponse = ExtractResponseBody<
-  '/api/authed/chats',
+  '/authed/chats',
   'get',
   HttpStatusCode.Ok
 >

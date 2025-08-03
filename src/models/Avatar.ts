@@ -1,5 +1,3 @@
-import { components } from 'chatter-be/openapi/schema'
+import type { components } from 'chatter-be/openapi/schema'
 
-type Avatar = components['schemas']['Avatar']
-
-export default Avatar
+export type Avatar = components['schemas']['Avatar']

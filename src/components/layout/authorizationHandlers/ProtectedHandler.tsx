@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import LocalStorageService from 'src/services/LocalStorageService'
-import eventEmitter from 'src/services/EventEmitter'
+import LocalStorageService from '@src/services/LocalStorageService'
+import eventEmitter from '@src/services/EventEmitter'
 
 /*
   Handles routes that are protected

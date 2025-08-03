@@ -1,5 +1,6 @@
-import { Chat } from './Chat'
-import { MemberHash, generateMemberHash } from './MemberHash'
+import type { Chat } from './Chat'
+import type { MemberHash } from './MemberHash'
+import { generateMemberHash } from './MemberHash'
 
 // memberHash -> Chat
 export type MemberHashToChat = Map<MemberHash, Chat>

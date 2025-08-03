@@ -1,36 +1,35 @@
-import { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
-import { ExtractResponseBody } from '../Extractors'
-import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
+import type { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
+import type { ExtractResponseBody } from '../Extractors'
+import type { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
 import axiosAuthInstance from '../AuthInterceptor'
-import env from '../../config'
 
 type ChatUsersDetailsResponse = ExtractResponseBody<
-  '/api/authed/chatUsersDetails',
+  '/authed/chatUsersDetails',
   'get',
   HttpStatusCode.Ok
 >
 
 type ChatsResponse = ExtractResponseBody<
-  '/api/authed/chats',
+  '/authed/chats',
   'get',
   HttpStatusCode.Ok
 >
 
 type UserHeadsResponse = ExtractResponseBody<
-  '/api/authed/userHeads',
+  '/authed/userHeads',
   'get',
   HttpStatusCode.Ok
 >
 
 type ReadThreadResponse = ExtractResponseBody<
-  '/api/authed/readThread/{threadId}',
+  '/authed/readThread/{threadId}',
   'patch',
   HttpStatusCode.Ok
 >
 
-type MessageRequest = ExtractPathRequestBody<'/api/authed/message', 'post'>
+type MessageRequest = ExtractPathRequestBody<'/authed/message', 'post'>
 type MessageResponse = ExtractResponseBody<
-  '/api/authed/message',
+  '/authed/message',
   'post',
   HttpStatusCode.Created
 >
@@ -44,15 +43,12 @@ export default class ChatService {
     return axiosAuthInstance.get<
       ChatUsersDetailsResponse,
       AxiosResponse<ChatUsersDetailsResponse>
-    >(
-      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/chatUsersDetails`,
-      axiosConfig
-    )
+    >('/api/authed/chatUsersDetails', axiosConfig)
   }
 
   static getChats() {
     return axiosAuthInstance.get<ChatsResponse, AxiosResponse<ChatsResponse>>(
-      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/chats`,
+      '/api/authed/chats',
       axiosConfig
     )
   }
@@ -61,18 +57,14 @@ export default class ChatService {
     return axiosAuthInstance.get<
       UserHeadsResponse,
       AxiosResponse<UserHeadsResponse>
-    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/userHeads`, axiosConfig)
+    >('/api/authed/userHeads', axiosConfig)
   }
 
   static patchReadThread(threadId: number) {
     return axiosAuthInstance.patch<
       ReadThreadResponse,
       AxiosResponse<ReadThreadResponse>
-    >(
-      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/readThread/${threadId}`,
-      {},
-      axiosConfig
-    )
+    >(`/api/authed/readThread/${threadId}`, {}, axiosConfig)
   }
 
   static postMessage(form: MessageRequest) {
@@ -80,6 +72,6 @@ export default class ChatService {
       MessageResponse,
       AxiosResponse<MessageResponse>,
       MessageRequest
-    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/message`, form, axiosConfig)
+    >('/api/authed/message', form, axiosConfig)
   }
 }

@@ -1,12 +1,10 @@
-// src/components/Notifier.tsx
-
 import { useEffect } from 'react'
 import { useWebSocketConnection } from './socket/useWebSocketConnection'
 import { useLocation } from 'react-router-dom'
 
 function Notifier() {
   const { lastJsonMessage } = useWebSocketConnection({
-    url: `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`
+    endpoint: '/ws/api/authed'
   })
 
   const location = useLocation() // Access the current route

@@ -1,8 +1,8 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
+import type { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
 type DefaultAvatarsResponse = ExtractResponseBody<
-  '/api/authed/defaultAvatars',
+  '/authed/defaultAvatars',
   'get',
   HttpStatusCode.Ok
 >

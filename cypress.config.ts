@@ -11,6 +11,7 @@ export default defineConfig({
     }
   },
   env: {
+    baseWsUrl: process.env.CYPRESS_BASE_WS_URL,
     serviceAccountUsername: process.env.SERVICE_ACCOUNT_USERNAME,
     serviceAccountPassword: process.env.SERVICE_ACCOUNT_PASSWORD
   }

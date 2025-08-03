@@ -1,7 +1,6 @@
 import '../../styles/conversations/ChatHead.scss'
 
-import arrow from '../../assets/arrow.svg'
-import UserDetails from '../../models/UserDetails'
+import type { UserDetails } from '../../models/UserDetails'
 import SubmissionArrow from '../form/SubmissionArrow'
 
 type UserHeadProps = {

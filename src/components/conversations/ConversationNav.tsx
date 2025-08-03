@@ -1,5 +1,5 @@
-import { Dispatch } from 'react'
-import { PayloadlessAction } from '../reducers/conversation/Actions'
+import type { Dispatch, JSX } from 'react'
+import type { PayloadlessAction } from '../reducers/conversation/Actions'
 import { toggleUserHeads } from '../reducers/conversation/ActionCreators'
 
 type ConversationNavProps = {

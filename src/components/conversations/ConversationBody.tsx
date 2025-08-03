@@ -1,4 +1,4 @@
-import MessageType from '../../models/Message'
+import type { Message as MessageType } from '../../models/Message'
 import { ConversationHeader } from './ConversationHeader'
 import { Messages } from './Messages'
 

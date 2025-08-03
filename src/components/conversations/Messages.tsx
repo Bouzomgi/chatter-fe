@@ -1,7 +1,7 @@
 import '../../styles/conversations/Message.scss'
 
 import Message from './Message'
-import MessageType from '../../models/Message'
+import type { Message as MessageType } from '../../models/Message'
 import LocalStorageService from '../../services/LocalStorageService'
 import dayjs from 'dayjs'
 import TimestampLabel from './TimestampLabel'

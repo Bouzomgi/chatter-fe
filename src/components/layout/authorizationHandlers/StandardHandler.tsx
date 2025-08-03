@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import LocalStorageService from 'src/services/LocalStorageService'
+import LocalStorageService from '@src/services/LocalStorageService'
 
 /*
   Handles standard routes

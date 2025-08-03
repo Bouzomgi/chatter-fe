@@ -1,18 +1,25 @@
 import { useRef } from 'react'
 import useWebSocket from 'react-use-websocket'
-import eventEmitter from 'src/services/EventEmitter'
-import MessageNotificationPayload from 'chatter-be/src/websocket/MessageNotificationPayload'
+import eventEmitter from '@src/services/EventEmitter'
+import type { MessageNotificationPayload } from 'chatter-be/src/websocket/MessageNotificationPayload'
 
 interface WebSocketConnectionParams {
-  url: string
+  endpoint: string
 }
 
-export const useWebSocketConnection = ({ url }: WebSocketConnectionParams) => {
+export const useWebSocketConnection = ({
+  endpoint
+}: WebSocketConnectionParams) => {
   const connectionAttempts = useRef(0)
 
   const maxConnectionAttempts = 3
 
-  const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(url, {
+  const wsUrl =
+    (location.protocol === 'https:' ? 'wss://' : 'ws://') +
+    location.host +
+    endpoint
+
+  const { lastJsonMessage } = useWebSocket<MessageNotificationPayload>(wsUrl, {
     share: true,
     shouldReconnect: () => {
       connectionAttempts.current++
@@ -29,6 +36,9 @@ export const useWebSocketConnection = ({ url }: WebSocketConnectionParams) => {
     onOpen: () => {
       console.log('WebSocket connection established')
       connectionAttempts.current = 0
+    },
+    onClose: () => {
+      console.log('WebSocket connection closed')
     },
     onError: () => {
       console.error('WebSocket connection error')

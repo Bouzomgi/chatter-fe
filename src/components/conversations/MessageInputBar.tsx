@@ -1,8 +1,10 @@
-import { useState, ChangeEvent, useEffect, Dispatch } from 'react'
+import type { ChangeEvent, Dispatch } from 'react'
+import { useState, useEffect } from 'react'
 import LocalStorageService from '../../services/LocalStorageService'
 import ChatService from '../../services/requesters/ChatService'
-import { generateMemberHash, MemberHash } from '../../models/MemberHash'
-import {
+import { generateMemberHash } from '../../models/MemberHash'
+import type { MemberHash } from '../../models/MemberHash'
+import type {
   SendMessageToNewConversationAction,
   UpdateFieldAction
 } from '../reducers/conversation/Actions'
@@ -10,9 +12,9 @@ import {
   sendMessageToNewConversation,
   updateField
 } from '../reducers/conversation/ActionCreators'
-import { MemberHashToChat } from '../../models/MemberHashToChat'
-import UserDetails from '../../models/UserDetails'
-import { UserIdToUserDetails } from '../../models/UserIdToUserDetails'
+import type { MemberHashToChat } from '../../models/MemberHashToChat'
+import type { UserDetails } from '../../models/UserDetails'
+import type { UserIdToUserDetails } from '../../models/UserIdToUserDetails'
 
 type MessageInputBarProps = {
   readonly userIdToUserDetails: UserIdToUserDetails

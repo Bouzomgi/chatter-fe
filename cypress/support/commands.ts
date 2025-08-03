@@ -21,7 +21,7 @@ Cypress.Commands.add('areUserDetailsSetInLocalStorage', () =>
 Cypress.Commands.add('login', (options?: Cypress.loginOptions) => {
   const haveNoUnseenMessages = options?.haveNoUnseenMessages
 
-  cy.mockWebSocket('ws://localhost:4000/api/authed', {
+  cy.mockWebSocket('ws://localhost:5173/ws/api/authed', {
     useDefaultWebSocket: true
   })
 

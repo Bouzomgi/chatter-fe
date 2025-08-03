@@ -58,7 +58,7 @@ describe('Login Page', () => {
   })
 
   it('should successfully login with valid input', () => {
-    cy.mockWebSocket('ws://localhost:4000/api/authed', {
+    cy.mockWebSocket(`${Cypress.env('baseWsUrl')}/ws/api/authed`, {
       useDefaultWebSocket: true
     })
 

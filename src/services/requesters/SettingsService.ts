@@ -1,11 +1,10 @@
-import { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
-import { ExtractResponseBody } from '../Extractors'
-import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
+import type { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
+import type { ExtractResponseBody } from '../Extractors'
+import type { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
 import axiosAuthInstance from '../AuthInterceptor'
-import env from '../../config'
 
 type DefaultAvatarResponse = ExtractResponseBody<
-  '/api/authed/defaultAvatars',
+  '/authed/defaultAvatars',
   'get',
   HttpStatusCode.Ok
 >
@@ -14,12 +13,9 @@ type SettingsForm = {
   avatar: string
 }
 
-type SetSettingsRequest = ExtractPathRequestBody<
-  '/api/authed/setSettings',
-  'post'
->
+type SetSettingsRequest = ExtractPathRequestBody<'/authed/setSettings', 'post'>
 type SetSettingsResponse = ExtractResponseBody<
-  '/api/authed/setSettings',
+  '/authed/setSettings',
   'post',
   HttpStatusCode.Ok
 >
@@ -33,10 +29,7 @@ export default class SettingsService {
     return axiosAuthInstance.get<
       DefaultAvatarResponse,
       AxiosResponse<DefaultAvatarResponse>
-    >(
-      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/defaultAvatars`,
-      axiosConfig
-    )
+    >('/api/authed/defaultAvatars', axiosConfig)
   }
 
   static setSettings(settingsForm: SettingsForm) {
@@ -44,10 +37,6 @@ export default class SettingsService {
       SetSettingsResponse,
       AxiosResponse<SetSettingsResponse>,
       SetSettingsRequest
-    >(
-      `${env.REACT_APP_BACKEND_ENDPOINT}/api/authed/setSettings`,
-      settingsForm,
-      axiosConfig
-    )
+    >('/api/authed/setSettings', settingsForm, axiosConfig)
   }
 }

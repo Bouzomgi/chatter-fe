@@ -4,7 +4,7 @@ import '../../styles/general/Arrow.scss'
 import { useEffect, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import SettingsService from '../../services/requesters/SettingsService'
-import Avatar from '../../models/Avatar'
+import type { Avatar } from '../../models/Avatar'
 
 type AvatarSelectionModalProps = {
   readonly clearModal: () => void

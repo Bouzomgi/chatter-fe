@@ -1,4 +1,4 @@
-import Avatar from '../models/Avatar'
+import type { Avatar } from '../models/Avatar'
 
 type UserDetails = {
   userId: number

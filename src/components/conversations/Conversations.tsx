@@ -10,7 +10,7 @@ import MessageInputBar from './MessageInputBar'
 import ChatHead from './ChatHead'
 import LocalStorageService from '../../services/LocalStorageService'
 import { generateMemberHash } from '../../models/MemberHash'
-import { Chat } from '../../models/Chat'
+import type { Chat } from '../../models/Chat'
 import ConversationNav from './ConversationNav'
 
 import conversationReducer from '../reducers/conversation/Reducer'

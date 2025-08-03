@@ -1,8 +1,8 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
+import type { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
 type UserHeadsResponse = ExtractResponseBody<
-  '/api/authed/userHeads',
+  '/authed/userHeads',
   'get',
   HttpStatusCode.Ok
 >

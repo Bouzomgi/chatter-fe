@@ -1,27 +1,19 @@
-import axios, { AxiosRequestConfig, AxiosResponse, HttpStatusCode } from 'axios'
-import { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
-import { ExtractResponseBody } from '../Extractors'
-import env from '../../config'
+import axios, { HttpStatusCode } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { ExtractPathRequestBody } from 'chatter-be/openapi/typeExtractors'
+import type { ExtractResponseBody } from '../Extractors'
 
-type LoginRequest = ExtractPathRequestBody<'/api/login', 'post'>
-type LoginResponse = ExtractResponseBody<
-  '/api/login',
-  'post',
-  HttpStatusCode.Ok
->
+type LoginRequest = ExtractPathRequestBody<'/login', 'post'>
+type LoginResponse = ExtractResponseBody<'/login', 'post', HttpStatusCode.Ok>
 
-type RegisterRequest = ExtractPathRequestBody<'/api/register', 'post'>
+type RegisterRequest = ExtractPathRequestBody<'/register', 'post'>
 type RegisterResponse = ExtractResponseBody<
-  '/api/register',
+  '/register',
   'post',
   HttpStatusCode.Created
 >
 
-type LogoutResponse = ExtractResponseBody<
-  '/api/logout',
-  'post',
-  HttpStatusCode.Ok
->
+type LogoutResponse = ExtractResponseBody<'/logout', 'post', HttpStatusCode.Ok>
 
 const axiosConfig: AxiosRequestConfig = {
   withCredentials: true
@@ -33,7 +25,7 @@ export default class AuthService {
       LoginResponse,
       AxiosResponse<LoginResponse>,
       LoginRequest
-    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/login`, form, axiosConfig)
+    >('/api/login', form, axiosConfig)
   }
 
   static register(form: RegisterRequest) {
@@ -41,12 +33,12 @@ export default class AuthService {
       RegisterResponse,
       AxiosResponse<RegisterResponse>,
       RegisterRequest
-    >(`${env.REACT_APP_BACKEND_ENDPOINT}/api/register`, form)
+    >('/api/register', form)
   }
 
   static logout() {
     return axios.post<LogoutResponse, AxiosResponse<LogoutResponse>>(
-      `${env.REACT_APP_BACKEND_ENDPOINT}/api/logout`,
+      '/api/logout',
       {},
       axiosConfig
     )

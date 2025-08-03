@@ -1,4 +1,4 @@
-import { UpdateFieldAction, ConversationState, Actions } from './Actions'
+import type { UpdateFieldAction, ConversationState, Actions } from './Actions'
 
 import { initialState } from './State'
 

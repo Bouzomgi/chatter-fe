@@ -1,11 +1,7 @@
-import { ExtractResponseBody } from '@src/services/Extractors'
+import type { ExtractResponseBody } from '@src/services/Extractors'
 import { HttpStatusCode } from 'axios'
 
-type LoginResponse = ExtractResponseBody<
-  '/api/login',
-  'post',
-  HttpStatusCode.Ok
->
+type LoginResponse = ExtractResponseBody<'/login', 'post', HttpStatusCode.Ok>
 
 const mockLoginResponse: LoginResponse = {
   userId: 1,

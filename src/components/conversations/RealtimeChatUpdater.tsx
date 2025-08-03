@@ -1,9 +1,10 @@
-import { useEffect, Dispatch } from 'react'
-import { MemberHashToChat } from '../../models/MemberHashToChat'
+import type { Dispatch } from 'react'
+import { useEffect } from 'react'
+import type { MemberHashToChat } from '../../models/MemberHashToChat'
 import ChatService from '../../services/requesters/ChatService'
 import { generateUserIdToUserDetails } from '../../models/UserIdToUserDetails'
 import { generateMemberHash } from '../../models/MemberHash'
-import { Actions as ConversationActions } from '../reducers/conversation/Actions'
+import type { Actions as ConversationActions } from '../reducers/conversation/Actions'
 import { updateField } from '../reducers/conversation/ActionCreators'
 import { useWebSocketConnection } from '../layout/socket/useWebSocketConnection'
 
@@ -17,7 +18,7 @@ export default function RealtimeChatUpdater({
   conversationDispatch
 }: RealtimeChatUpdaterProps) {
   const { lastJsonMessage } = useWebSocketConnection({
-    url: `${process.env.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT}/api/authed`
+    endpoint: '/ws/api/authed'
   })
 
   useEffect(() => {

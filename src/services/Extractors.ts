@@ -1,4 +1,4 @@
-import { paths } from 'chatter-be/openapi/schema'
+import type { paths } from 'chatter-be/openapi/schema'
 
 type PathMethods = keyof paths
 type PathMethodResponse<

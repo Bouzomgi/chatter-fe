@@ -6,7 +6,7 @@ import EmptyFormRow from '../form/EmptyFormInputRow'
 import { useState } from 'react'
 import AvatarSelectionModal from '../modal/AvatarSelectionModal'
 import LocalStorageService from '../../services/LocalStorageService'
-import Avatar from '../../models/Avatar'
+import type { Avatar } from '../../models/Avatar'
 import SettingsService from '../../services/requesters/SettingsService'
 import { useNavigate } from 'react-router-dom'
 
@@ -24,8 +24,9 @@ export default function Settings() {
   const [showAvatarSelectionModal, setShowAvatarSelectionModal] =
     useState(false)
 
-  const [currentSelectedAvatar, setCurrentSelectedAvatar] =
-    useState<Avatar>(getCurrentAvatar())
+  const [currentSelectedAvatar, setCurrentSelectedAvatar] = useState<Avatar>(
+    getCurrentAvatar()
+  )
 
   const navigate = useNavigate()
 
