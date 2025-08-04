@@ -24,9 +24,8 @@ export default function Settings() {
   const [showAvatarSelectionModal, setShowAvatarSelectionModal] =
     useState(false)
 
-  const [currentSelectedAvatar, setCurrentSelectedAvatar] = useState<Avatar>(
-    getCurrentAvatar()
-  )
+  const [currentSelectedAvatar, setCurrentSelectedAvatar] =
+    useState<Avatar>(getCurrentAvatar())
 
   const navigate = useNavigate()
 
