@@ -38,5 +38,5 @@ jobs:
       - name: Run local Cypress tests
         run: npm run test:local:ci
         env:
-          REACT_APP_BACKEND_ENDPOINT: ${{ vars.REACT_APP_BACKEND_ENDPOINT }}
-          REACT_APP_BACKEND_WEBSOCKET_ENDPOINT: ${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }}
+          REACT_APP_BACKEND_ENDPOINT: 'http://localhost:5173'
+          REACT_APP_BACKEND_WEBSOCKET_ENDPOINT: 'ws://localhost:5173'
