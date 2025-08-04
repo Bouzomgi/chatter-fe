@@ -35,6 +35,9 @@ jobs:
       - name: Check Lint
         run: npm run check-lint
 
+      - name: Start Server
+        run: npm start
+
       - name: Run Local Tests
         uses: cypress-io/github-action@v6
         with:
