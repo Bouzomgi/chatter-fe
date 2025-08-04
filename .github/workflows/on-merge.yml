@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: [trigger-deployment]
   push:
-    branches: main
+    branches: [main]
 
 # This allows a subsequently queued workflow run to interrupt previous runs
 concurrency:

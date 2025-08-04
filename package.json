@@ -8,7 +8,6 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test:local": "npx cypress run --spec \"cypress/e2e/local/**/*.cy.ts\"",
-    "test:local:ci": "start-server-and-test dev http://localhost:5173 test:local",
     "test:live": "npx cypress run --spec \"cypress/e2e/live/**/*.cy.ts\"",
     "test": "npm run test:local && npm run test:live",
     "lint": "npx eslint --fix --ext .ts . && npx prettier --write .",
