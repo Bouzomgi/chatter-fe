@@ -36,5 +36,12 @@ jobs:
           CYPRESS_BASE_URL: 'http://localhost:5173'
           CYPRESS_BASE_WS_URL: 'ws://localhost:5173'
 
+      - name: Upload Cypress screenshots
+        if: failure() # optional — only uploads if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
       - name: Check Lint
         run: npm run check-lint
