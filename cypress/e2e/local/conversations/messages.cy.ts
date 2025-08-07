@@ -17,7 +17,7 @@ describe('Messages', () => {
     cy.login()
 
     cy.get('.conversation-header').contains('britta')
-    cy.get('.messages').contains('Fri, Mar 5 at 8:00 AM')
+    cy.get('.messages').contains('Fri, Mar 29 at 4:00 AM')
     cy.get('.messages').contains('Grateful to have you as a friend!')
   })
 

@@ -14,7 +14,7 @@ export default function TimestampLabel({
   const daysDifference = currentDay.diff(messageDay, 'day')
   const dayDisplay =
     daysDifference >= 7
-      ? messageDay.format('ddd, MMM d [at] h:mm A')
+      ? messageDay.format('ddd, MMM D [at] h:mm A')
       : messageDay.format('dddd h:mm A')
 
   return (
