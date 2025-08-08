@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "test:local": "npx cypress run --spec \"cypress/e2e/local/**/*.cy.ts\"",
-    "test:live": "npx cypress run --spec \"cypress/e2e/live/**/*.cy.ts\"",
+    "test:local": "VITE_IS_TEST_ENV=true npx cypress run --spec \"cypress/e2e/local/**/*.cy.ts\"",
+    "test:live": "VITE_IS_TEST_ENV=true npx cypress run --spec \"cypress/e2e/live/**/*.cy.ts\"",
     "test": "npm run test:local && npm run test:live",
     "lint": "npx eslint --fix --ext .ts . && npx prettier --write .",
     "check-lint": "npx eslint --ext .ts . && npx prettier --check ."
