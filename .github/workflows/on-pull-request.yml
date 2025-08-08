@@ -28,12 +28,11 @@ jobs:
       - name: Start Vite and run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev
+          start: VITE_IS_TEST_ENV=true npm run dev
           wait-on: http://localhost:5173
           wait-on-timeout: 60 # seconds
           command: npm run test:local
         env:
-          VITE_IS_TEST_ENV: true
           CYPRESS_BASE_URL: 'http://localhost:5173'
           CYPRESS_BASE_WS_URL: 'ws://localhost:5173'
 
