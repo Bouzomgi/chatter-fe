@@ -7,7 +7,7 @@ dayjs.extend(timezone)
 
 const DEFAULT_TZ = 'America/New_York'
 
-const isTestEnv = import.meta.env.VITE_IS_TEST_ENV === 'true'
+const isTestEnv = import.meta.env.VITE_IS_TEST_ENV == 'true'
 
 if (isTestEnv) {
   dayjs.tz.setDefault(DEFAULT_TZ)
