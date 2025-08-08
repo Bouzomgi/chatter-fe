@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import dayjs from '@src/utils/dayjsWrapper'
 
 type TimestampLabelProps = {
   readonly labelingMessageId: number

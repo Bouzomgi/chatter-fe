@@ -33,6 +33,7 @@ jobs:
           wait-on-timeout: 60 # seconds
           command: npm run test:local
         env:
+          VITE_IS_TEST_ENV: true
           CYPRESS_BASE_URL: 'http://localhost:5173'
           CYPRESS_BASE_WS_URL: 'ws://localhost:5173'
 

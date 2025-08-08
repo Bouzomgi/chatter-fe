@@ -3,7 +3,7 @@ import '../../styles/conversations/ChatHead.scss'
 import type { Avatar } from '../../models/Avatar'
 import type { Chat as ChatType } from '../../models/Chat'
 import type { Message as MessageType } from '../../models/Message'
-import dayjs from 'dayjs'
+import dayjs from '@src/utils/dayjsWrapper'
 
 const timestampToString = (timestamp: string): string => {
   const messageDay = dayjs(timestamp)

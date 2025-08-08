@@ -3,7 +3,7 @@ import '../../styles/conversations/Message.scss'
 import Message from './Message'
 import type { Message as MessageType } from '../../models/Message'
 import LocalStorageService from '../../services/LocalStorageService'
-import dayjs from 'dayjs'
+import dayjs from '@src/utils/dayjsWrapper'
 import TimestampLabel from './TimestampLabel'
 import { useRef, useEffect } from 'react'
 

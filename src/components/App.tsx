@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
-import '@src/setup/timeSetup'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Settings from './pages/Settings'
