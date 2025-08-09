@@ -16,7 +16,7 @@ jobs:
     environment: prod
     permissions:
       id-token: write
-      contents: read
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
           docker buildx build \
             --platform linux/arm64/v8 \
             -t bouzomgi/chatter-fe:latest \
-            -t bouzomgi/chatter-fe:${{ steps.gitversion.outputs.FullSemVer }} \
+            -t bouzomgi/chatter-fe:${{ steps.gitversion.outputs.MajorMinorPatch }} \
             --push .
 
       - name: Tag commit if Docker image built
@@ -64,5 +64,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag v${{ steps.gitversion.outputs.FullSemVer }}
-          git push origin v${{ steps.gitversion.outputs.FullSemVer }}
+          git tag v${{ steps.gitversion.outputs.MajorMinorPatch }} $GITHUB_SHA
+          git push origin v${{ steps.gitversion.outputs.MajorMinorPatch }}
