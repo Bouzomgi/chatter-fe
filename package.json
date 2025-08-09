@@ -5,13 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npx tsc -b && vite build",
     "preview": "vite preview",
     "test:local": "cypress run --spec \"cypress/e2e/local/**/*.cy.ts\"",
     "test:live": "npx cypress run --spec \"cypress/e2e/live/**/*.cy.ts\"",
     "test": "npm run test:local && npm run test:live",
     "lint": "npx eslint --fix --ext .ts . && npx prettier --write .",
-    "check-lint": "npx eslint --ext .ts . && npx prettier --check . && tsc --noEmit"
+    "check-lint": "npx eslint --ext .ts . && npx prettier --check . && npx tsc --noEmit"
   },
   "dependencies": {
     "axios": "^1.11.0",
@@ -42,7 +42,7 @@
     "globals": "^16.3.0",
     "sass-embedded": "^1.89.2",
     "start-server-and-test": "^2.0.13",
-    "typescript": "~5.8.3",
+    "typescript": "5.6",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4",
     "vite-tsconfig-paths": "^5.1.4"
