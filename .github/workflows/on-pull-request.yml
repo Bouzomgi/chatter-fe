@@ -25,6 +25,9 @@ jobs:
           node-version: 20.12.x
           cache: npm
 
+      - name: Check Lint
+        run: npm run check-lint
+
       - name: Start Vite and run Cypress tests
         uses: cypress-io/github-action@v6
         with:
@@ -42,6 +45,3 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-
-      - name: Check Lint
-        run: npm run check-lint

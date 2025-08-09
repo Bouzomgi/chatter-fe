@@ -6,7 +6,6 @@ on:
   push:
     branches: [main]
 
-# This allows a subsequently queued workflow run to interrupt previous runs
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
@@ -22,6 +21,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0
+
+      - name: Print version
+        run: |
+          echo "FullSemVer: ${{ steps.gitversion.outputs.FullSemVer }}"
+          echo "MajorMinorPatch: ${{ steps.gitversion.outputs.MajorMinorPatch }}"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -34,12 +47,20 @@ jobs:
           username: bouzomgi
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
+      - name: Build and push Docker image
+        id: docker_build
         run: |
           docker buildx create --use
           docker buildx build \
             --platform linux/arm64/v8 \
             -t bouzomgi/chatter-fe:latest \
-            --build-arg REACT_APP_BACKEND_ENDPOINT=${{ vars.REACT_APP_BACKEND_ENDPOINT }} \
-            --build-arg REACT_APP_BACKEND_WEBSOCKET_ENDPOINT=${{ vars.REACT_APP_BACKEND_WEBSOCKET_ENDPOINT }} \
+            -t bouzomgi/chatter-fe:${{ steps.gitversion.outputs.FullSemVer }} \
             --push .
+
+      - name: Tag commit if Docker image built
+        if: success() # only runs if the previous step succeeded
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag v${{ steps.gitversion.outputs.FullSemVer }}
+          git push origin v${{ steps.gitversion.outputs.FullSemVer }}

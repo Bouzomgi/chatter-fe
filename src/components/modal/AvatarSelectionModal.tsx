@@ -37,7 +37,7 @@ export default function AvatarSelectionModal({
     clearModal()
   }
 
-  const avatarImages = avatars.map((avatar, i) => (
+  const avatarImages = avatars.map((avatar) => (
     <img
       src={avatar.url}
       alt={avatar.name}

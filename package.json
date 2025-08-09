@@ -11,7 +11,7 @@
     "test:live": "npx cypress run --spec \"cypress/e2e/live/**/*.cy.ts\"",
     "test": "npm run test:local && npm run test:live",
     "lint": "npx eslint --fix --ext .ts . && npx prettier --write .",
-    "check-lint": "npx eslint --ext .ts . && npx prettier --check ."
+    "check-lint": "npx eslint --ext .ts . && npx prettier --check . && tsc --noEmit"
   },
   "dependencies": {
     "axios": "^1.11.0",
