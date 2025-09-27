@@ -23,6 +23,7 @@ describe('Notifier', () => {
     cy.title().should('eq', 'chatter!!!')
 
     cy.get('.chat-head').eq(2).click()
+    cy.wait(100)
     cy.title().should('eq', 'chatter')
   })
 
