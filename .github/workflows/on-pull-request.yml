@@ -2,7 +2,7 @@ name: "PR"
 on:
   workflow_dispatch:
   pull_request:
-    branches: [default]
+    branches: [main]
 
 # This allows a subsequently queued workflow run to interrupt previous runs
 concurrency:
