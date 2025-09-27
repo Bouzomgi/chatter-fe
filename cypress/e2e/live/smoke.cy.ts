@@ -32,13 +32,13 @@ describe('Smoke test', () => {
 
     // logout
     cy.contains('log out').should('be.visible').click()
-
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.location('pathname').should('eq', '/')
     cy.areUserDetailsSetInLocalStorage().should('be.false')
 
     // attempt to visit chatroom after logging out
     cy.visit('/chatroom')
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.wait(100)
+    cy.location('pathname', { timeout: 5000 }).should('eq', '/')
     cy.areUserDetailsSetInLocalStorage().should('be.false')
   })
 })

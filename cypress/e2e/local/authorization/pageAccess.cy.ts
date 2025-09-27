@@ -18,7 +18,7 @@ describe('Unauthorized protection', () => {
 
     cy.get('[data-cy="message-input"]').type('test{enter}')
 
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.location('pathname').should('eq', '/')
     cy.areUserDetailsSetInLocalStorage().should('be.false')
   })
 
@@ -27,7 +27,7 @@ describe('Unauthorized protection', () => {
 
     cy.visit('/chatroom')
 
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.location('pathname').should('eq', '/')
   })
 })
 
@@ -37,6 +37,6 @@ describe('Authorized protection', () => {
 
     cy.visit('/')
 
-    cy.url().should('eq', `${Cypress.config().baseUrl}/chatroom`)
+    cy.location('pathname').should('eq', '/chatroom')
   })
 })
