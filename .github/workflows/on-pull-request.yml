@@ -25,6 +25,9 @@ jobs:
           node-version: 20.19.x
           cache: npm
 
+      - name: Install Dependencies
+        run: npm install
+
       - name: Check Lint
         run: npm run check-lint
 
