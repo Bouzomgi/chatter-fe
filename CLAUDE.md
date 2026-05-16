@@ -3,9 +3,11 @@
 React frontend for the Chatter messaging app.
 
 ## What it does
+
 A real-time chat UI. Users can log in, browse other users, and open or start conversations. New messages appear instantly via WebSocket. Unread conversations are visually flagged and cleared when the user opens them. Users can update their profile avatar in settings.
 
 ## Stack
+
 - **Framework**: React 19, TypeScript
 - **Build**: Vite 7
 - **Routing**: React Router 7
@@ -15,6 +17,7 @@ A real-time chat UI. Users can log in, browse other users, and open or start con
 - **Tests**: Cypress E2E
 
 ## Commands
+
 ```bash
 npm run dev          # dev server (proxies /api → backend)
 npm run build        # tsc + vite build
@@ -23,6 +26,7 @@ npm run test:live    # cypress against live env
 ```
 
 ## Structure
+
 ```
 src/
   components/
@@ -41,12 +45,14 @@ src/
 ```
 
 ## Testing
+
 Cypress E2E only — no unit or component tests. Two suites:
 
 - `cypress/e2e/local/` — runs against the local dev environment (`npm run test:local`)
 - `cypress/e2e/live/` — runs against the deployed production environment (`npm run test:live`)
 
 ## Key details
+
 - API types are imported directly from `chatter-be/openapi/schema.ts` — don't duplicate them here
 - Vite proxies `/api` to the backend in dev; in production nginx handles routing
 - Path alias: `@src/`
