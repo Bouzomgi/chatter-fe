@@ -22,7 +22,7 @@ describe('Chatroom Page', () => {
     cy.login()
 
     cy.contains('settings').should('be.visible').click()
-    cy.url().should('include', '/settings')
+    cy.location('pathname').should('eq', '/settings')
   })
 
   it('should have a link to logout', () => {
@@ -35,11 +35,11 @@ describe('Chatroom Page', () => {
 
     cy.contains('log out').should('be.visible').click()
 
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.location('pathname').should('eq', '/')
     cy.areUserDetailsSetInLocalStorage().should('be.false')
 
     cy.visit('/chatroom')
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.location('pathname').should('eq', '/')
     cy.areUserDetailsSetInLocalStorage().should('be.false')
   })
 })

@@ -90,7 +90,7 @@ describe('Login Page', () => {
     })
 
     cy.get('[data-cy="submit"]').click()
-    cy.url().should('include', '/chatroom')
+    cy.location('pathname').should('eq', '/chatroom')
 
     cy.areUserDetailsSetInLocalStorage().should('be.true')
   })

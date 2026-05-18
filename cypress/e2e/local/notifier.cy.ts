@@ -26,6 +26,7 @@ describe('Notifier', () => {
     // marks the tab as hidden (isTabActive=false), preventing the auto-read on mount
     cy.get('.chat-head').eq(0).click()
     cy.get('.chat-head').eq(2).click()
+    cy.wait(100)
     cy.title().should('eq', 'chatter')
   })
 
