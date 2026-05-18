@@ -22,8 +22,11 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 20.12.x
+          node-version: 20.19.x
           cache: npm
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Check Lint
         run: npm run check-lint

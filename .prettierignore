@@ -3,3 +3,4 @@ public
 build
 coverage
 node_modules
+GitVersion.yml

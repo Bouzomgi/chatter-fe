@@ -22,6 +22,9 @@ describe('Notifier', () => {
     cy.login()
     cy.title().should('eq', 'chatter!!!')
 
+    // Click all chat heads with unseen messages explicitly, since headless CI
+    // marks the tab as hidden (isTabActive=false), preventing the auto-read on mount
+    cy.get('.chat-head').eq(0).click()
     cy.get('.chat-head').eq(2).click()
     cy.title().should('eq', 'chatter')
   })
